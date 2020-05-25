@@ -1,77 +1,157 @@
 <section class="auth">
-    <div class="container-fluid h-100">
-        <div class="row">
-            <div class="col">
-                <div class="hero-title">EasyTasking</div>
-            </div>
-        </div>
-        <div class="row h-100">
-            <div class="col-md-6 auth-container action-section">
-                <div class="form-container">
-                    <div class="form-wrapper">
-                        <div class="selection">
-                            <button [ngClass]="{'active': isLogin}" class="button"
-                                routerLink="/authenticate/login">Login</button>
-                            <button [ngClass]="{'active': !isLogin}" class="button"
-                                routerLink="/authenticate/signup">Signup</button>
-                        </div>
-
-                        <!-- *******************Login******************* -->
-                        <main *ngIf="isLogin" class="my-form">
-                            <div class="inputs-wrapper">
-                                <form>
-                                    <div class="input-wrapper">
-                                        <input type="email" placeholder="Email Address" class="form-input">
-                                        <span class="focus-border"></span>
-                                    </div>
-                                    <div class="input-wrapper">
-                                        <input type="password" placeholder="Password" class="form-input">
-                                        <span class="focus-border"></span>
-                                    </div>
-                                    <div class="form-opt">
-                                        <div (click)="isChecked = !isChecked" class="check">
-                                            <div class="checkbox" [ngClass]="{'checked': isChecked}"></div>
-                                            <span>Keep me logged in</span>
-                                        </div>
-                                        <div class="for-pass">Forgot password?</div>
-                                    </div>
-                                    <button class="button form-button">Login</button>
-                                </form>
-                                <div class="form-separator">or</div>
-                                <div class="google"><img src="assets/icons/google-icon.svg" alt="Google"> Login with
-                                    Google</div>
-                            </div>
-                        </main>
-
-                        <!-- *******************Signup******************* -->
-                        <main *ngIf="!isLogin" class="my-form">
-                            <div class="inputs-wrapper">
-                                <form>
-                                    <div class="input-wrapper">
-                                        <input type="text" placeholder="Your Name" class="form-input">
-                                        <span class="focus-border"></span>
-                                    </div>
-                                    <div class="input-wrapper">
-                                        <input type="email" placeholder="Email Address" class="form-input">
-                                        <span class="focus-border"></span>
-                                    </div>
-                                    <div class="input-wrapper">
-                                        <input type="password" placeholder="Password" class="form-input">
-                                        <span class="focus-border"></span>
-                                    </div>
-                                    <button class="button form-button">Signup</button>
-                                </form>
-                                <div class="form-separator">or</div>
-                                <div class="google"><img src="assets/icons/google-icon.svg" alt="Google"> Login with
-                                    Google</div>
-                            </div>
-                        </main>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 auth-container design-section pc-only">
-                asd
-            </div>
-        </div>
+  <div class="container-fluid h-100">
+    <div class="row">
+      <div class="col">
+        <div class="hero-title">EasyTasking</div>
+      </div>
     </div>
+    <div class="row h-100">
+      <div class="col-md-6 auth-container action-section">
+        <div class="form-container">
+          <div class="form-wrapper">
+            <div class="selection">
+              <button
+                [ngClass]="{ active: isLogin }"
+                class="button"
+                routerLink="/authenticate/login"
+              >
+                Login
+              </button>
+              <button
+                [ngClass]="{ active: !isLogin }"
+                class="button"
+                routerLink="/authenticate/signup"
+              >
+                Signup
+              </button>
+            </div>
+
+            <!-- *******************Login******************* -->
+            <main *ngIf="isLogin" class="my-form">
+              <div class="inputs-wrapper">
+                <form formGroup="loginForm" (ngSubmit)="submit()">
+                  <div class="input-wrapper">
+                    <input
+                      type="email"
+                      placeholder="Email"
+                      class="form-input"
+                    />
+                    <span class="focus-border"></span>
+                  </div>
+                  <div class="input-wrapper">
+                    <input
+                      type="password"
+                      placeholder="Password"
+                      class="form-input"
+                    />
+                    <span class="focus-border"></span>
+                  </div>
+
+                  <div class="form-opt">
+                    <div (click)="isChecked = !isChecked" class="check">
+                      <div
+                        class="checkbox"
+                        [ngClass]="{ checked: isChecked }"
+                      ></div>
+                      <span>Keep me logged in</span>
+                    </div>
+                    <div class="for-pass">Forgot password?</div>
+                  </div>
+                  <button class="button form-button">Login</button>
+                </form>
+                <div class="form-separator">or</div>
+                <div class="google">
+                  <img src="assets/icons/google-icon.svg" alt="Google" /> Login
+                  with Google
+                </div>
+              </div>
+            </main>
+
+            <!-- *******************Signup******************* -->
+            <main *ngIf="!isLogin" class="my-form">
+              <div class="inputs-wrapper">
+                <form formGroup="registrationForm" (ngSubmit)="submit()"> 
+                  <div class="input-wrapper">
+                    <input
+                      type="text"
+                      placeholder="Your Name"
+                      class="form-input"
+                      id="name"
+                      formControlName="name"
+                    />
+                    <span class="focus-border"></span>
+                  </div>
+                
+                  <div class="input-wrapper">
+                    <input
+                      type="text"
+                      placeholder="Phone(optional)"
+                      class="form-input"
+                      formControlName="phone"
+                    />
+                    <span class="focus-border"></span>
+                  </div>
+                  <div class="input-wrapper">
+                    <input
+                      type="email"
+                      placeholder="Email Address"
+                      class="form-input"
+                      
+                      formControlName="email"
+                    />
+                    <span class="focus-border"></span>
+                  </div>
+                  <div class="input-wrapper">
+                    <input
+                      type="password"
+                      placeholder="Password"
+                      class="form-input"
+                      
+                      formControlName="password"
+                    />
+                    <span class="focus-border"></span>
+                  </div>
+                  <div class="input-wrapper">
+                  <input
+                    type="radio"
+                    id="male"
+                    name="gender"
+                    value="MALE"
+                    formControlName="gender"
+                  />&nbsp;
+                  <label for="male"> Male</label> &nbsp;&nbsp;
+                  <input
+                    type="radio"
+                    id="female"
+                    name="gender"
+                    value="FEMALE"
+                    formControlName="gender"
+                  />&nbsp;
+                  <label for="female"> Female</label><br />
+                  <input
+                    type="radio"
+                    id="other"
+                    name="gender"
+                    value="OTHER"
+                    formControlName="gender"
+                  />&nbsp;
+                  <label for="other"> Others</label><br />
+                </div>
+                  <button class="button form-button" type="submit" [disabled]="!registrationForm.valid">Signup</button>
+                </form>
+                <div class="form-separator">or</div>
+                <div class="google">
+                  <img src="assets/icons/google-icon.svg" alt="Google" /> Login
+                  with Google
+                </div>
+              </div>
+            </main>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 auth-container design-section pc-only">
+        asd
+      </div>
+    </div>
+  </div>
 </section>

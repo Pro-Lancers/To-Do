@@ -5,7 +5,6 @@ const path = require('path');
 const config = require('./config');
 const initLoader = require('./loaders');
 
-global.appRoot = path.resolve(__dirname);
 
 Logger.init({ level: config.logs.level });
 
