@@ -1,13 +1,26 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {environment} from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
+public interface User {
+  name: string;
+  email: string;
+  password: string;
+  phone: string;
+}
+
 export class ServerService {
 
-  readonly api = environment.api + '/api/v1';
+  // tslint:disable-next-line:variable-name
+  private readonly _baseApiUrl = environment.baseUrl + '/api/v1';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
+
+  registerUser(user: User) {
+    return this.http.post<User>(this._baseApiUrl + 'users', JSON.stringify(user));
+  }
 }

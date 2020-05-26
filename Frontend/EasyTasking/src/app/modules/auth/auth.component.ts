@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {FormGroup, FormControl, Validators} from '@angular/forms';
 import {CustomValidators} from '../../utils/custom-validators';
+import {ServerService} from "../../service/server.service";
 
 @Component({
   selector: 'app-auth',
@@ -40,16 +41,19 @@ export class AuthComponent implements OnInit {
     return this.loginForm.controls;
   }
 
-  submitForm(form) {
+  async submitForm(form) {
+    this.isSubmitting = form;
     if (form === 'register') {
       console.log(this.registrationForm.value);
+      this.apiService.registerUser({...this.registrationForm.value}).subscribe(response => {
+        console.log(response)
+      });
     } else if (form === 'auth') {
       console.log(this.loginForm.value);
     }
-    this.isSubmitting = form;
   }
 
-  constructor(private router: ActivatedRoute) {
+  constructor(private router: ActivatedRoute, private apiService: ServerService) {
   }
 
   ngOnInit(): void {

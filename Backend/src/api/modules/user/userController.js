@@ -7,6 +7,7 @@ class UserController {
     try {
       Logger.log("info", "Creating user");
       const newUser = await UserService.createUser(req.body);
+      console.log("newUser : ",newUser)
       Response.success(res, "success", newUser, httpStatusCodes.CREATED);
     } catch (error) {
       Logger.log("error", "error in creating user", error);
