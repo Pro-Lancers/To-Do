@@ -29,24 +29,34 @@
             <!-- *******************Login******************* -->
             <main *ngIf="isLogin" class="my-form">
               <div class="inputs-wrapper">
-                <form formGroup="loginForm" (ngSubmit)="submit()">
+                <form [formGroup]="loginForm" (ngSubmit)="submitForm('auth')">
                   <div class="input-wrapper">
                     <input
                       type="email"
                       placeholder="Email"
                       class="form-input"
+                      formControlName="email"
                     />
                     <span class="focus-border"></span>
+                  </div>
+                  <div *ngIf="(authForm.email.touched || isSubmitting==='auth') && authForm.email.invalid"
+                       class="alert alert-dismissible alert-danger">
+                    <span *ngIf="authForm.email.errors.required">Email is required.</span>
+                    <span *ngIf="authForm.email.errors.pattern">Email is Invalid.</span>
                   </div>
                   <div class="input-wrapper">
                     <input
                       type="password"
                       placeholder="Password"
                       class="form-input"
+                      formControlName="password"
                     />
                     <span class="focus-border"></span>
                   </div>
-
+                  <div *ngIf="(authForm.password.touched || isSubmitting==='auth') && authForm.password.invalid"
+                       class="alert alert-dismissible alert-danger">
+                    <span *ngIf="authForm.password.errors.required">Password is required.</span>
+                  </div>
                   <div class="form-opt">
                     <div (click)="isChecked = !isChecked" class="check">
                       <div
@@ -57,11 +67,11 @@
                     </div>
                     <div class="for-pass">Forgot password?</div>
                   </div>
-                  <button class="button form-button">Login</button>
+                  <button class="button form-button" type="submit">Login</button>
                 </form>
                 <div class="form-separator">or</div>
                 <div class="google">
-                  <img src="assets/icons/google-icon.svg" alt="Google" /> Login
+                  <img src="assets/icons/google-icon.svg" alt="Google"/> Login
                   with Google
                 </div>
               </div>
@@ -70,7 +80,8 @@
             <!-- *******************Signup******************* -->
             <main *ngIf="!isLogin" class="my-form">
               <div class="inputs-wrapper">
-                <form formGroup="registrationForm" (ngSubmit)="submit()"> 
+                <form [formGroup]="registrationForm" (ngSubmit)="submitForm('register')">
+
                   <div class="input-wrapper">
                     <input
                       type="text"
@@ -81,12 +92,17 @@
                     />
                     <span class="focus-border"></span>
                   </div>
-                
+                  <div *ngIf="(registerForm.name.touched || isSubmitting==='register') && registerForm.name.invalid"
+                       class="alert alert-dismissible alert-danger">
+                    <span *ngIf="registerForm.name.errors.required">Name is required.</span>
+                    <span *ngIf="registerForm.name.errors.minlength">Name should be 3 character.</span>
+                  </div>
                   <div class="input-wrapper">
                     <input
                       type="text"
                       placeholder="Phone(optional)"
-                      class="form-input"
+                      class="form-input form-control"
+                      [class.is-invalid]="registerForm.name.invalid && registerForm.name.touched"
                       formControlName="phone"
                     />
                     <span class="focus-border"></span>
@@ -96,52 +112,71 @@
                       type="email"
                       placeholder="Email Address"
                       class="form-input"
-                      
+
                       formControlName="email"
                     />
                     <span class="focus-border"></span>
+                  </div>
+                  <div *ngIf="(registerForm.email.touched || isSubmitting==='register') && registerForm.email.invalid"
+                       class="alert alert-dismissible alert-danger">
+                    <span *ngIf="registerForm.email.errors.required">Email is required.</span>
+                    <span *ngIf="registerForm.email.errors.pattern">Email is Invalid.</span>
                   </div>
                   <div class="input-wrapper">
                     <input
                       type="password"
                       placeholder="Password"
                       class="form-input"
-                      
+
                       formControlName="password"
                     />
                     <span class="focus-border"></span>
                   </div>
+                  <div
+                    *ngIf="(registerForm.password.touched || isSubmitting==='register') && registerForm.password.invalid"
+                    class="alert alert-dismissible alert-danger">
+                    <p *ngIf="registerForm.password.errors.required">Password is required.</p>
+                    <p *ngIf="registerForm.password.errors.minlength">Password should contain 8 characters.</p>
+                    <p *ngIf="registerForm.password.errors.hasNumber">Password should contain number.</p>
+                    <p *ngIf="registerForm.password.errors.hasCapitalCase">Password should contain capital letter.</p>
+                    <p *ngIf="registerForm.password.errors.hasSmallCase">Password should contain small letter.</p>
+                  </div>
                   <div class="input-wrapper">
-                  <input
-                    type="radio"
-                    id="male"
-                    name="gender"
-                    value="MALE"
-                    formControlName="gender"
-                  />&nbsp;
-                  <label for="male"> Male</label> &nbsp;&nbsp;
-                  <input
-                    type="radio"
-                    id="female"
-                    name="gender"
-                    value="FEMALE"
-                    formControlName="gender"
-                  />&nbsp;
-                  <label for="female"> Female</label><br />
-                  <input
-                    type="radio"
-                    id="other"
-                    name="gender"
-                    value="OTHER"
-                    formControlName="gender"
-                  />&nbsp;
-                  <label for="other"> Others</label><br />
-                </div>
-                  <button class="button form-button" type="submit" [disabled]="!registrationForm.valid">Signup</button>
+                    <input
+                      type="radio"
+                      id="male"
+                      name="gender"
+                      value="MALE"
+                      formControlName="gender"
+                    />&nbsp;
+                    <label for="male"> Male</label> &nbsp;&nbsp;
+                    <input
+                      type="radio"
+                      id="female"
+                      name="gender"
+                      value="FEMALE"
+                      formControlName="gender"
+                    />&nbsp;
+                    <label for="female"> Female</label><br/>
+                    <!--                  <input-->
+                    <!--                    type="radio"-->
+                    <!--                    id="other"-->
+                    <!--                    name="gender"-->
+                    <!--                    value="OTHER"-->
+                    <!--                    formControlName="gender"-->
+                    <!--                  />&nbsp;-->
+                    <!--                  <label for="other"> Others</label><br />-->
+                    <div
+                      *ngIf="(registerForm.gender.touched || isSubmitting==='register') && registerForm.gender.invalid"
+                      class="alert alert-dismissible alert-danger">
+                      <p *ngIf="registerForm.gender.errors.required">Gender is required.</p>
+                    </div>
+                  </div>
+                  <button class="button form-button" type="submit">Signup</button>
                 </form>
                 <div class="form-separator">or</div>
                 <div class="google">
-                  <img src="assets/icons/google-icon.svg" alt="Google" /> Login
+                  <img src="assets/icons/google-icon.svg" alt="Google"/> Login
                   with Google
                 </div>
               </div>
