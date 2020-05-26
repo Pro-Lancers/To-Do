@@ -17,7 +17,7 @@ interface User {
 export class ServerService {
 
   // tslint:disable-next-line:variable-name
-  private readonly _baseApiUrl = environment.baseUrl + '/api/v1';
+  private readonly _baseApiUrl = environment.baseUrl + '/api/v1/';
 
   constructor(private http: HttpClient) {
   }
