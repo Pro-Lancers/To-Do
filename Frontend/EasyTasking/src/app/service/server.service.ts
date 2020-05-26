@@ -2,15 +2,16 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from 'src/environments/environment';
 
-@Injectable({
-  providedIn: 'root'
-})
-public interface User {
+interface User {
   name: string;
   email: string;
   password: string;
   phone: string;
 }
+@Injectable({
+  providedIn: 'root'
+})
+
 
 export class ServerService {
 
