@@ -10,18 +10,10 @@
         <div class="form-container">
           <div class="form-wrapper">
             <div class="selection">
-              <button
-                [ngClass]="{ active: isLogin }"
-                class="button"
-                routerLink="/authenticate/login"
-              >
+              <button [ngClass]="{ active: isLogin }" class="button" routerLink="/authenticate/login">
                 Login
               </button>
-              <button
-                [ngClass]="{ active: !isLogin }"
-                class="button"
-                routerLink="/authenticate/signup"
-              >
+              <button [ngClass]="{ active: !isLogin }" class="button" routerLink="/authenticate/signup">
                 Signup
               </button>
             </div>
@@ -31,38 +23,25 @@
               <div class="inputs-wrapper">
                 <form [formGroup]="loginForm" (ngSubmit)="submitForm('auth')">
                   <div class="input-wrapper">
-                    <input
-                      type="email"
-                      placeholder="Email"
-                      class="form-input"
-                      formControlName="email"
-                    />
+                    <input type="email" placeholder="Email" class="form-input" formControlName="email" />
                     <span class="focus-border"></span>
                   </div>
                   <div *ngIf="(authForm.email.touched || isSubmitting==='auth') && authForm.email.invalid"
-                       class="alert alert-dismissible alert-danger">
+                    class="alert alert-dismissible alert-danger">
                     <span *ngIf="authForm.email.errors.required">Email is required.</span>
                     <span *ngIf="authForm.email.errors.pattern">Email is Invalid.</span>
                   </div>
                   <div class="input-wrapper">
-                    <input
-                      type="password"
-                      placeholder="Password"
-                      class="form-input"
-                      formControlName="password"
-                    />
+                    <input type="password" placeholder="Password" class="form-input" formControlName="password" />
                     <span class="focus-border"></span>
                   </div>
                   <div *ngIf="(authForm.password.touched || isSubmitting==='auth') && authForm.password.invalid"
-                       class="alert alert-dismissible alert-danger">
+                    class="alert alert-dismissible alert-danger">
                     <span *ngIf="authForm.password.errors.required">Password is required.</span>
                   </div>
                   <div class="form-opt">
                     <div (click)="isChecked = !isChecked" class="check">
-                      <div
-                        class="checkbox"
-                        [ngClass]="{ checked: isChecked }"
-                      ></div>
+                      <div class="checkbox" [ngClass]="{ checked: isChecked }"></div>
                       <span>Keep me logged in</span>
                     </div>
                     <div class="for-pass">Forgot password?</div>
@@ -71,7 +50,7 @@
                 </form>
                 <div class="form-separator">or</div>
                 <div class="google">
-                  <img src="assets/icons/google-icon.svg" alt="Google"/> Login
+                  <img src="assets/icons/google-icon.svg" alt="Google" /> Login
                   with Google
                 </div>
               </div>
@@ -83,53 +62,31 @@
                 <form [formGroup]="registrationForm" (ngSubmit)="submitForm('register')">
 
                   <div class="input-wrapper">
-                    <input
-                      type="text"
-                      placeholder="Your Name"
-                      class="form-input"
-                      id="name"
-                      formControlName="name"
-                    />
+                    <input type="text" placeholder="Your Name" class="form-input" id="name" formControlName="name" />
                     <span class="focus-border"></span>
                   </div>
                   <div *ngIf="(registerForm.name.touched || isSubmitting==='register') && registerForm.name.invalid"
-                       class="alert alert-dismissible alert-danger">
+                    class="alert alert-dismissible alert-danger">
                     <span *ngIf="registerForm.name.errors.required">Name is required.</span>
                     <span *ngIf="registerForm.name.errors.minlength">Name should be 3 character.</span>
                   </div>
                   <div class="input-wrapper">
-                    <input
-                      type="text"
-                      placeholder="Phone(optional)"
-                      class="form-input form-control"
+                    <input type="text" placeholder="Phone(optional)" class="form-input form-control"
                       [class.is-invalid]="registerForm.name.invalid && registerForm.name.touched"
-                      formControlName="phone"
-                    />
+                      formControlName="phone" />
                     <span class="focus-border"></span>
                   </div>
                   <div class="input-wrapper">
-                    <input
-                      type="email"
-                      placeholder="Email Address"
-                      class="form-input"
-
-                      formControlName="email"
-                    />
+                    <input type="email" placeholder="Email Address" class="form-input" formControlName="email" />
                     <span class="focus-border"></span>
                   </div>
                   <div *ngIf="(registerForm.email.touched || isSubmitting==='register') && registerForm.email.invalid"
-                       class="alert alert-dismissible alert-danger">
+                    class="alert alert-dismissible alert-danger">
                     <span *ngIf="registerForm.email.errors.required">Email is required.</span>
                     <span *ngIf="registerForm.email.errors.pattern">Email is Invalid.</span>
                   </div>
                   <div class="input-wrapper">
-                    <input
-                      type="password"
-                      placeholder="Password"
-                      class="form-input"
-
-                      formControlName="password"
-                    />
+                    <input type="password" placeholder="Password" class="form-input" formControlName="password" />
                     <span class="focus-border"></span>
                   </div>
                   <div
@@ -142,22 +99,10 @@
                     <p *ngIf="registerForm.password.errors.hasSmallCase">Password should contain small letter.</p>
                   </div>
                   <div class="input-wrapper">
-                    <input
-                      type="radio"
-                      id="male"
-                      name="gender"
-                      value="MALE"
-                      formControlName="gender"
-                    />&nbsp;
+                    <input type="radio" id="male" name="gender" value="MALE" formControlName="gender" />&nbsp;
                     <label for="male"> Male</label> &nbsp;&nbsp;
-                    <input
-                      type="radio"
-                      id="female"
-                      name="gender"
-                      value="FEMALE"
-                      formControlName="gender"
-                    />&nbsp;
-                    <label for="female"> Female</label><br/>
+                    <input type="radio" id="female" name="gender" value="FEMALE" formControlName="gender" />&nbsp;
+                    <label for="female"> Female</label><br />
                     <!--                  <input-->
                     <!--                    type="radio"-->
                     <!--                    id="other"-->
@@ -176,7 +121,7 @@
                 </form>
                 <div class="form-separator">or</div>
                 <div class="google">
-                  <img src="assets/icons/google-icon.svg" alt="Google"/> Login
+                  <img src="assets/icons/google-icon.svg" alt="Google" /> Signup
                   with Google
                 </div>
               </div>
@@ -185,7 +130,18 @@
         </div>
       </div>
       <div class="col-md-6 auth-container design-section pc-only">
-        asd
+        <div class="content-wrapper">
+          <div class="text t1">
+            <div class="title">To-do list</div>
+            <div class="description">Make your work easy and organize it by EasyTasking</div>
+          </div>
+          <img src="" class="img-1">
+          <div class="text t2">
+            <div class="title">Set Priority</div>
+            <div class="description">Make your work easy and organize it by EasyTasking</div>
+          </div>
+          <img src="" class="img-2">
+        </div>
       </div>
     </div>
   </div>

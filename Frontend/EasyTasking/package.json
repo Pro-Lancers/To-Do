@@ -19,7 +19,6 @@
     "@angular/platform-browser": "~9.1.9",
     "@angular/platform-browser-dynamic": "~9.1.9",
     "@angular/router": "~9.1.9",
-    "@fortawesome/fontawesome-free": "^5.13.0",
     "bootstrap": "^4.5.0",
     "i": "^0.3.6",
     "jquery": "^3.5.1",
