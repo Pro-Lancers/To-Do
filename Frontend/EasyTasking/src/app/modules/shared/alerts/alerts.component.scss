@@ -1,0 +1,59 @@
+.alert_container {
+    position: fixed;
+    left: 1rem;
+    bottom: 1rem;
+    z-index: 6000;
+    box-sizing: border-box;
+    width: calc(100% - 2rem);
+}
+
+.alertBox {
+    margin: 0 0 6px;
+    padding: 15px;
+    min-width: 20rem;
+    font-size: 0.9rem;
+    opacity: 0.95;
+    transition: opacity 0.4s linear;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.12);
+}
+
+.alertBoxHider {
+    opacity: 0.05;
+    transition: opacity 0.8s linear;
+}
+
+.alertMessage {
+    word-wrap: break-word;
+    font-weight: 300;
+}
+
+.iconClass {
+    float: left;
+    margin: 0 10px;
+}
+
+.error {
+    color: white;
+    background: red;
+}
+
+.warn {
+    color: white;
+    background: #33b5e5;
+}
+
+.success {
+    color: white;
+    background: #00c851;
+}
+
+@media screen and (max-width: 600px) {
+    .alertBox {
+        padding: 10px;
+    }
+
+    .alert_container {
+        left: 0;
+        top: 0;
+    }
+}

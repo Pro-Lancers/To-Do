@@ -1,0 +1,29 @@
+header {
+    padding: 15px 0;
+
+    .header-wrapper {
+        position: relative;
+    }
+
+    .rt,
+    .lt {
+        position: relative;
+        display: inline-block;
+    }
+
+    .rt {
+        margin-right: auto;
+    }
+
+    .lt {
+        margin-left: auto;
+    }
+
+    .logo {
+        position: relative;
+
+        img {
+            height: 44px;
+        }
+    }
+}

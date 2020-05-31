@@ -20,9 +20,9 @@ export class AuthComponent implements OnInit {
     email: new FormControl('', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]),
     password: new FormControl('', [
       Validators.required,
-      CustomValidators.patternValidator(/\d/, {hasNumber: true}),
-      CustomValidators.patternValidator(/[A-Z]/, {hasCapitalCase: true}),
-      CustomValidators.patternValidator(/[a-z]/, {hasSmallCase: true}),
+      CustomValidators.patternValidator(/\d/, { hasNumber: true }),
+      CustomValidators.patternValidator(/[A-Z]/, { hasCapitalCase: true }),
+      CustomValidators.patternValidator(/[a-z]/, { hasSmallCase: true }),
       Validators.minLength(8)]),
     gender: new FormControl('', Validators.required),
     phone: new FormControl()
@@ -44,16 +44,15 @@ export class AuthComponent implements OnInit {
   async submitForm(form) {
     this.isSubmitting = form;
     if (form === 'register' && this.registrationForm.valid) {
-      
-      this.apiService.registerUser({...this.registrationForm.value}).subscribe(response => {
-        console.log("register : ",response);
+      this.server.registerUser({ ...this.registrationForm.value }).subscribe(response => {
+        console.log("register : ", response);
       });
-    } else if (form === 'auth'  && this.loginForm.valid) {
+    } else if (form === 'auth' && this.loginForm.valid) {
       console.log(this.loginForm.value);
     }
   }
 
-  constructor(private router: ActivatedRoute, private apiService: ServerService) {
+  constructor(private router: ActivatedRoute, private server: ServerService) {
   }
 
   ngOnInit(): void {
@@ -64,6 +63,16 @@ export class AuthComponent implements OnInit {
         this.isLogin = true;
       }
     });
+
+    // Bro I changed apiServer name cause now we wont use that only for api's :P
+    // Delete this comments after seeing
+
+    this.test();
+  }
+
+  test() {
+    this.server.errorMessage('test message');
+
   }
 
 }
