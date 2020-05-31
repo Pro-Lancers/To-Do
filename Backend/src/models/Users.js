@@ -4,8 +4,7 @@ module.exports = function (sequelize, DataTypes) {
     "user",
     {
       id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
+        type: DataTypes.UUID,
         primaryKey: true,
       },
       name: {
