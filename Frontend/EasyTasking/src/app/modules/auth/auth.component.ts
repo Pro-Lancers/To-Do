@@ -1,8 +1,16 @@
+<<<<<<< HEAD
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CustomValidators } from '../../utils/custom-validators';
 import { ServerService } from "../../service/server.service";
+=======
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {FormGroup, FormControl, Validators} from '@angular/forms';
+import {CustomValidators} from '../../utils/custom-validators';
+import {ServerService} from '../../service/server.service';
+>>>>>>> 72c5846cbf3e8e61ba47de99a5902e1cdb38bd46
 
 @Component({
   selector: 'app-auth',
@@ -45,7 +53,7 @@ export class AuthComponent implements OnInit {
     this.isSubmitting = form;
     if (form === 'register' && this.registrationForm.valid) {
       this.server.registerUser({ ...this.registrationForm.value }).subscribe(response => {
-        console.log(response);
+        console.log("register : ", response);
       });
     } else if (form === 'auth' && this.loginForm.valid) {
       console.log(this.loginForm.value);
