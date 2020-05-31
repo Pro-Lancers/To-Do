@@ -44,6 +44,7 @@ export class AuthComponent implements OnInit {
   async submitForm(form) {
     this.isSubmitting = form;
     if (form === 'register' && this.registrationForm.valid) {
+      
       this.apiService.registerUser({...this.registrationForm.value}).subscribe(response => {
         console.log("register : ",response);
       });

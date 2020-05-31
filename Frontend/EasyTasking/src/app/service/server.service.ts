@@ -23,6 +23,7 @@ export class ServerService {
   }
 
   registerUser(user: User) {
+    console.log("user : ",user)
     return this.http.post<User>(this._baseApiUrl + 'users', JSON.stringify(user));
   }
 }
