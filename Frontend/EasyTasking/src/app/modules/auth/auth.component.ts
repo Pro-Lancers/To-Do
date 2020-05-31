@@ -68,12 +68,11 @@ export class AuthComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    if (this.authService.isAuthenticated) {
+    if (this.authService.isAuthenticated()) {
       this.router.navigate(['/dashboard'])
     } else {
-      this.activatedRouter.params.subscribe(params => {
-        if (params.param === 'signup') {
+      this.activatedRouter.params.subscribe(arg => {
+        if (arg.param === 'signup') {
           this.isLogin = false;
         } else {
           this.isLogin = true;
