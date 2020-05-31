@@ -1,44 +1,40 @@
 "use strict";
 const { GENDERTYPES } = require("../utils/constants");
 module.exports = {
-  up: (queryInterface, Sequelize) => {
+  up: (queryInterface, DataTypes) => {
     return queryInterface.createTable("users", {
       id: {
-        type: Sequelize.UUID,
+        type: DataTypes.UUID,
         primaryKey: true,
       },
-      firstName: {
-        type: Sequelize.STRING,
+      name: {
+        type: DataTypes.STRING,
         allowNull: false,
       },
-      lastName: {
-        type: Sequelize.STRING,
-        allowNull: true,
-      },
       email: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         unique: true,
         allowNull: false,
       },
       password: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       gender: {
-        type: Sequelize.ENUM(GENDERTYPES),
+        type: DataTypes.ENUM(GENDERTYPES),
         allowNull: false,
       },
       phone: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         unique: true,
         allowNull: true,
       },
       createdAt: {
-        type: Sequelize.DATE,
+        type: DataTypes.DATE,
         allowNull: false,
       },
       updatedAt: {
-        type: Sequelize.DATE,
+        type: DataTypes.DATE,
         allowNull: false,
       },
     });
