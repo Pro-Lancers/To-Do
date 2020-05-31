@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CustomValidators } from '../../utils/custom-validators';
 import { ServerService } from '../../service/server.service';
 import { CookieService } from 'src/app/service/cookie.service';
+import { AuthService } from 'src/app/service/auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -54,26 +55,30 @@ export class AuthComponent implements OnInit {
       });
     } else if (form === 'auth' && this.loginForm.valid) {
       this.server.loginUser({ ...this.loginForm.value }).subscribe((response: any) => {
-        if(response.success){
-          console.log(response)
-          localStorage.setItem('auth_token',response.data.token)
-          this.cookieService.setCookie('auth_token',response.data.token,1)
+        if (response.success) {
+          localStorage.setItem('auth_token', response.data.token)
+          this.cookieService.setCookie('auth_token', response.data.token, 1)
           this.router.navigate(['/dashboard'])
         }
       })
     }
   }
 
-  constructor(private router:Router,private activatedRouter: ActivatedRoute, private server: ServerService, private cookieService: CookieService,) {
+  constructor(private router: Router, private activatedRouter: ActivatedRoute, private server: ServerService, private cookieService: CookieService, private authService: AuthService) {
   }
 
   ngOnInit(): void {
-    this.activatedRouter.params.subscribe(params => {
-      if (params.param === 'signup') {
-        this.isLogin = false;
-      } else {
-        this.isLogin = true;
-      }
-    });
+
+    if (this.authService.isAuthenticated) {
+      this.router.navigate(['/dashboard'])
+    } else {
+      this.activatedRouter.params.subscribe(params => {
+        if (params.param === 'signup') {
+          this.isLogin = false;
+        } else {
+          this.isLogin = true;
+        }
+      });
+    }
   }
 }

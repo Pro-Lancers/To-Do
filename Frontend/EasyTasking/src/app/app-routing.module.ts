@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuardService } from './service/auth-guard.service';
 
 
 const routes: Routes = [
@@ -11,6 +12,7 @@ const routes: Routes = [
   },
   {
     path: 'dashboard',
+    canActivate: [AuthGuardService],
     loadChildren: () => import('./modules/todo/todo.module').then(m => m.TodoModule)
   },
 ];
