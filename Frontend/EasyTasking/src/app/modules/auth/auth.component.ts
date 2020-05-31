@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {FormGroup, FormControl, Validators} from '@angular/forms';
-import {CustomValidators} from '../../utils/custom-validators';
-import {ServerService} from '../../service/server.service';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { CustomValidators } from '../../utils/custom-validators';
+import { ServerService } from '../../service/server.service';
+import { CookieService } from 'src/app/service/cookie.service';
 
 @Component({
   selector: 'app-auth',
@@ -25,7 +26,7 @@ export class AuthComponent implements OnInit {
       CustomValidators.patternValidator(/[a-z]/, { hasSmallCase: true }),
       Validators.minLength(8)]),
     gender: new FormControl('', Validators.required),
-    phone: new FormControl()
+    phone: new FormControl('')
   });
 
   loginForm = new FormGroup({
@@ -44,35 +45,35 @@ export class AuthComponent implements OnInit {
   async submitForm(form) {
     this.isSubmitting = form;
     if (form === 'register' && this.registrationForm.valid) {
-      this.server.registerUser({ ...this.registrationForm.value }).subscribe(response => {
-        console.log("register : ", response);
+      this.server.registerUser({ ...this.registrationForm.value }).subscribe((response: any) => {
+        if (response.success) {
+          this.server.successMessage('Account successfully created !')
+        } else {
+          this.server.errorMessage('Some error occurred !')
+        }
       });
     } else if (form === 'auth' && this.loginForm.valid) {
-      console.log(this.loginForm.value);
+      this.server.loginUser({ ...this.loginForm.value }).subscribe((response: any) => {
+        if(response.success){
+          console.log(response)
+          localStorage.setItem('auth_token',response.data.token)
+          this.cookieService.setCookie('auth_token',response.data.token,1)
+          this.router.navigate(['/dashboard'])
+        }
+      })
     }
   }
 
-  constructor(private router: ActivatedRoute, private server: ServerService) {
+  constructor(private router:Router,private activatedRouter: ActivatedRoute, private server: ServerService, private cookieService: CookieService,) {
   }
 
   ngOnInit(): void {
-    this.router.params.subscribe(params => {
+    this.activatedRouter.params.subscribe(params => {
       if (params.param === 'signup') {
         this.isLogin = false;
       } else {
         this.isLogin = true;
       }
     });
-
-    // Bro I changed apiServer name cause now we wont use that only for api's :P
-    // Delete this comments after seeing
-
-    this.test();
   }
-
-  test() {
-    this.server.errorMessage('test message');
-
-  }
-
 }
