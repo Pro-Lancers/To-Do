@@ -1,8 +1,10 @@
 const bcrypt = require("bcrypt");
 const { isEmpty } = require("lodash");
+const httpStatusCodes = require("http-status-codes");
 const { sequelize, models } = require("../loaders/sequelize");
 const config = require("../config");
 const { uuid } = require("uuidv4");
+
 
 const saltRounds = config.saltRound;
 const salt = bcrypt.genSaltSync(saltRounds);
@@ -25,4 +27,16 @@ const loginUser = async (userData) => {
   }
   return false;
 };
-module.exports = { createUser, loginUser };
+
+const isUserExistCheck = async (userId) => {
+  const user = await models.user.findOne({
+    where: { id: userId },
+  });
+  if (isEmpty(user))
+    throw {
+      name: "NotFoundError",
+      message: "User not found",
+      code: httpStatusCodes.NOT_FOUND,
+    };
+};
+module.exports = { createUser, loginUser, isUserExistCheck };
