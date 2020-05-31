@@ -4,11 +4,11 @@ import { environment } from 'src/environments/environment';
 import { Subject, Observable } from 'rxjs';
 
 interface User {
-  name: string;
+  name?: string;
   email: string;
   password: string;
-  gender: string;
-  phone: string;
+  gender?: string;
+  phone?: string;
 }
 @Injectable({
   providedIn: 'root'
@@ -41,7 +41,12 @@ export class ServerService {
   }
 
   registerUser(user: User) {
-    console.log("user : ",user)
-    return this.http.post<User>(this._baseApiUrl + 'users', JSON.stringify(user));
+    !user['phone']?delete user['phone']:''
+    return this.http.post<User>(this._baseApiUrl + 'users', user);
   }
+
+  loginUser(user:User) {
+    return this.http.post<User>(this._baseApiUrl + 'users/login',user);
+  }
+  
 }
