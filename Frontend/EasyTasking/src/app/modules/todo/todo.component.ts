@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TodoComponent implements OnInit {
 
+  title = "Today";
+  todoList = [{}, {}];
+
   constructor() { }
 
   ngOnInit(): void {

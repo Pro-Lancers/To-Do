@@ -1,0 +1,91 @@
+.filters {
+
+    .filter-ele {
+        position: relative;
+        font-size: 14px;
+        padding: 5px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        margin: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease-out;
+
+        &:hover {
+            box-shadow: 0 0 20px -12px black;
+            border-radius: 3px;
+        }
+    }
+
+    .fill-btn {
+        background: var(--main-color);
+        margin-bottom: 15px;
+        color: white;
+        border-radius: 30px;
+        padding: 5px 10px;
+    }
+
+    .filter-name {
+        padding: 5px 10px;
+        color: gray;
+    }
+
+    img,
+    .img {
+        width: 12px;
+        margin-right: 10px;
+    }
+
+    @media (max-width: 991px) {
+        .filter-ele {
+            width: 120px;
+            display: inline-block;
+        }
+
+        .fill-btn,
+        .filter-name {
+            display: block;
+        }
+
+        & {
+            margin-bottom: 20px;
+        }
+    }
+}
+
+.body {
+    .cards-wrapper {
+        img {
+            position: absolute;
+            width: 50px;
+            z-index: 1;
+            background: transparent;
+            transform: translate(-10px, -10px);
+        }
+
+        .card-container {
+            position: relative;
+            width: 250px;
+            background: var(--main-color);
+            color: white;
+            height: 150px;
+            border-radius: 6px;
+            display: inline-block;
+            margin: 15px;
+        }
+
+        .card-content {
+            position: absolute;
+            width: calc(100% - 20px);
+            bottom: 20px;
+            left: 10px;
+            max-height: 115px;
+            overflow-y: auto;
+
+
+            small {
+                position: relative;
+            }
+        }
+    }
+}

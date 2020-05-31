@@ -4,7 +4,7 @@ const { GENDERTYPES } = require("../../../utils/constants");
 module.exports = {
   createUserSchema: celebrate({
     body: {
-      name: Joi.string().min(4).required(),
+      name: Joi.string().required(),
       email: Joi.string().email().required(),
       password: Joi.string().min(8).required(),
       phone: Joi.string().length(10),

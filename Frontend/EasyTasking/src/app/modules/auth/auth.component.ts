@@ -1,8 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {FormGroup, FormControl, Validators} from '@angular/forms';
-import {CustomValidators} from '../../utils/custom-validators';
-import {ServerService} from "../../service/server.service";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { CustomValidators } from '../../utils/custom-validators';
+import { ServerService } from '../../service/server.service';
+import { CookieService } from 'src/app/service/cookie.service';
+import { AuthService } from 'src/app/service/auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -20,12 +22,12 @@ export class AuthComponent implements OnInit {
     email: new FormControl('', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]),
     password: new FormControl('', [
       Validators.required,
-      CustomValidators.patternValidator(/\d/, {hasNumber: true}),
-      CustomValidators.patternValidator(/[A-Z]/, {hasCapitalCase: true}),
-      CustomValidators.patternValidator(/[a-z]/, {hasSmallCase: true}),
+      CustomValidators.patternValidator(/\d/, { hasNumber: true }),
+      CustomValidators.patternValidator(/[A-Z]/, { hasCapitalCase: true }),
+      CustomValidators.patternValidator(/[a-z]/, { hasSmallCase: true }),
       Validators.minLength(8)]),
     gender: new FormControl('', Validators.required),
-    phone: new FormControl()
+    phone: new FormControl('')
   });
 
   loginForm = new FormGroup({
@@ -44,25 +46,39 @@ export class AuthComponent implements OnInit {
   async submitForm(form) {
     this.isSubmitting = form;
     if (form === 'register' && this.registrationForm.valid) {
-      this.apiService.registerUser({...this.registrationForm.value}).subscribe(response => {
-        console.log(response);
+      this.server.registerUser({ ...this.registrationForm.value }).subscribe((response: any) => {
+        if (response.success) {
+          this.server.successMessage('Account successfully created !')
+        } else {
+          this.server.errorMessage('Some error occurred !')
+        }
       });
-    } else if (form === 'auth'  && this.loginForm.valid) {
-      console.log(this.loginForm.value);
+    } else if (form === 'auth' && this.loginForm.valid) {
+      this.server.loginUser({ ...this.loginForm.value }).subscribe((response: any) => {
+        if (response.success) {
+          localStorage.setItem('auth_token', response.data.token)
+          this.cookieService.setCookie('auth_token', response.data.token, 1)
+          this.router.navigate(['/dashboard'])
+        }
+      })
     }
   }
 
-  constructor(private router: ActivatedRoute, private apiService: ServerService) {
+  constructor(private router: Router, private activatedRouter: ActivatedRoute, private server: ServerService, private cookieService: CookieService, private authService: AuthService) {
   }
 
   ngOnInit(): void {
-    this.router.params.subscribe(params => {
-      if (params.param === 'signup') {
-        this.isLogin = false;
-      } else {
-        this.isLogin = true;
-      }
-    });
-  }
 
+    if (this.authService.isAuthenticated) {
+      this.router.navigate(['/dashboard'])
+    } else {
+      this.activatedRouter.params.subscribe(params => {
+        if (params.param === 'signup') {
+          this.isLogin = false;
+        } else {
+          this.isLogin = true;
+        }
+      });
+    }
+  }
 }

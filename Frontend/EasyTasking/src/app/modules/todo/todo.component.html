@@ -1,0 +1,80 @@
+<app-header></app-header>
+<main class="container">
+    <div class="row">
+        <section class="col-lg-3 filters">
+            <div class="filter-ele fill-btn">
+                <span class="img">+</span>
+                <span>Add Task</span>
+            </div>
+            <div class="filter-ele">
+                <img src="assets/icons/new-icon.svg">
+                <span>New</span>
+            </div>
+            <div class="filter-ele">
+                <img src="assets/icons/all-icon.svg">
+                <span>All</span>
+            </div>
+            <div class="filter-ele">
+                <img src="assets/icons/progress-icon.svg">
+                <span>InProgress</span>
+            </div>
+            <div class="filter-ele">
+                <img src="assets/icons/completed-icon.svg">
+                <span>completed</span>
+            </div>
+            <div class="filter-ele">
+                <img src="assets/icons/bin-icon.svg">
+                <span>Bin</span>
+            </div>
+            <div class="filter-ele filter-name">
+                Category
+            </div>
+            <div class="filter-ele">
+                <img src="assets/icons/Work-icon.svg">
+                <span>Work</span>
+            </div>
+            <div class="filter-ele">
+                <img src="assets/icons/personal-icon.svg">
+                <span>Personal</span>
+            </div>
+            <div class="filter-ele">
+                <img src="assets/icons/Shopping-icon.svg">
+                <span>Shopping</span>
+            </div>
+            <div class="filter-ele">
+                <img src="assets/icons/other-icon.svg">
+                <span>Others</span>
+            </div>
+        </section>
+        <section class="col-lg-9 body">
+            <div class="row">
+                <div class="col">
+                    <h2>{{title}}</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="cards-wrapper">
+
+                        <!-- TODO Card -->
+                        <div *ngFor="let todo of todoList; let i=index" class="et-card card-container">
+                            <img src="assets/icons/work-label.svg">
+                            <img src="assets/icons/personal-label.svg">
+                            <img src="assets/icons/shopping-label.svg">
+                            <img src="assets/icons/other-label.svg">
+                            <div class="card-content">
+                                <small>Due date: 08/10/2020</small>
+                                <h6>Complete Dashboard</h6>
+                            </div>
+                        </div>
+
+                        <!-- New Todo ard -->
+                        <div class="card-container">
+                            New card
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
