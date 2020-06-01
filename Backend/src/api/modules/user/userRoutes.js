@@ -10,6 +10,12 @@ router.post(
   Controller.createUser
 );
 
+router.get(
+  "/users/:userId",
+  Validations.getUserInfo,
+  Controller.getUserInfo
+);
+
 router.post(
   "/users/login",
   Validations.loginSchema,

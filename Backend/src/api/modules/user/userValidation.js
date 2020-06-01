@@ -18,4 +18,10 @@ module.exports = {
       password: Joi.string().min(1).required(),
     },
   }),
+  
+  getUserInfo: celebrate({
+    params: {
+      userId: Joi.string().uuid().required(),
+    },
+  }),
 };

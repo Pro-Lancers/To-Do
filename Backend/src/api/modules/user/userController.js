@@ -5,7 +5,7 @@ const TokenService = require("../../../services/Token");
 class UserController {
   static async createUser(req, res) {
     try {
-      console.log("USER : ",req.body)
+      console.log("USER : ", req.body);
       Logger.log("info", "Creating user");
       const newUser = await UserService.createUser(req.body);
       Response.success(res, "success", newUser, httpStatusCodes.CREATED);
@@ -19,15 +19,31 @@ class UserController {
       Logger.log("info", "Logging in User");
       const isAuthuser = await UserService.loginUser(req.body);
       if (isAuthuser) {
-        const user = await UserService.getUserInfo(req.body.email)
         const userToken = TokenService.generateToken(req.body.email);
-        Response.success(res, "success", { isAuth: true, token: userToken , ...user});
+        Response.success(res, "success", {
+          isAuth: true,
+          token: userToken,
+        });
       } else {
         Response.fail(res, "unauthorised", httpStatusCodes.UNAUTHORIZED);
       }
     } catch (error) {
       Logger.log("error", "unable to login,please try again", error);
       Response.fail(res, "unable to login user", httpStatusCodes.BAD_GATEWAY);
+    }
+  }
+
+  static async getUserInfo(req, res) {
+    try {
+      Logger.log("info", "fetching user info");
+      const userId = req.params.userId;
+      await UserService.isUserExistCheck(userId);
+      const userDetails = await UserService.getUserInfo(userId);
+      Response.success(res, "success", userDetails);
+    } catch (error) {
+      const code = error.code || httpStatusCodes.BAD_GATEWAY;
+      Logger.log("error", "error in fetching user info", error);
+      Response.fail(res, error.message, code);
     }
   }
 }
