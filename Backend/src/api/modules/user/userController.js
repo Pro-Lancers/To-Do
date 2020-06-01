@@ -19,7 +19,7 @@ class UserController {
       Logger.log("info", "Logging in User");
       const isAuthuser = await UserService.loginUser(req.body);
       if (isAuthuser) {
-        const user = await UserService.getUserInfo(undefined, req.body.email);
+        const user = await UserService.getUserInfo({email : req.body.email});
         const userToken = TokenService.generateToken(req.body.email);
         Response.success(res, "success", {
           isAuth: true,
@@ -40,7 +40,7 @@ class UserController {
       Logger.log("info", "fetching user info");
       const userId = req.params.userId;
       await UserService.isUserExistCheck(userId);
-      const userDetails = await UserService.getUserInfo(userId, undefined);
+      const userDetails = await UserService.getUserInfo({id:userId});
       Response.success(res, "success", { ...userDetails });
     } catch (error) {
       const code = error.code || httpStatusCodes.BAD_GATEWAY;

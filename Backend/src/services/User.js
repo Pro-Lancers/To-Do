@@ -26,15 +26,8 @@ const loginUser = async (userData) => {
   }
   return false;
 };
-const getUserInfo = async (userId, email) => {
-  let criteria = {};
-  if (!userId) {
-    criteria = { email: email };
-  }
-  if (!email) {
-    criteria = { id: userId };
-  }
-
+const getUserInfo = async (criteria) => {
+  
   let user = await models.user.findOne({
     where: { ...criteria },
   });
