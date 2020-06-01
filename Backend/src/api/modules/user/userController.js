@@ -1,3 +1,4 @@
+const { isEmpty } = require("lodash");
 const { Response, Logger } = require("../../../package");
 const httpStatusCodes = require("http-status-codes");
 const UserService = require("../../../services/User");
@@ -19,11 +20,11 @@ class UserController {
       Logger.log("info", "Logging in User");
       const isAuthuser = await UserService.loginUser(req.body);
       if (isAuthuser) {
-        const {id} = await UserService.getUserInfo({email : req.body.email});
-        const userToken = TokenService.generateToken(id,req.body.email);
+        const { id } = await UserService.getUserInfo({ email: req.body.email });
+        const userToken = TokenService.generateToken(id, req.body.email);
         Response.success(res, "success", {
           isAuth: true,
-          token: userToken
+          token: userToken,
         });
       } else {
         Response.fail(res, "unauthorised", httpStatusCodes.UNAUTHORIZED);
@@ -38,9 +39,12 @@ class UserController {
     try {
       Logger.log("info", "fetching user info");
       const userId = req.params.userId;
-      await UserService.isUserExistCheck(userId);
-      const userDetails = await UserService.getUserInfo({id:userId});
-      Response.success(res, "success", { ...userDetails });
+      const userDetails = await UserService.getUserInfo({ id: userId });
+
+      if (isEmpty(userDetails))
+        return Response.fail(res, "user not found", httpStatusCodes.NOT_FOUND);
+
+      Response.success(res, "success", userDetails);
     } catch (error) {
       const code = error.code || httpStatusCodes.BAD_GATEWAY;
       Logger.log("error", "error in fetching user info", error);

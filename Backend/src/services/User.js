@@ -26,24 +26,24 @@ const loginUser = async (userData) => {
   }
   return false;
 };
-const getUserInfo = async (criteria) => {
-  
-  let user = await models.user.findOne({
+const getUserInfo = async (criteria) =>
+  await models.user.findOne({
+    attributes: ["id", "name", "email", "phone"],
     where: { ...criteria },
   });
 
-  let fetchedInfo = {};
-  if (!isEmpty(user)) {
-    user = user.get({ plain: true });
-    fetchedInfo = {
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      phone: user.phone,
-    };
-  }
-  return Object.keys(fetchedInfo).length > 0 ? fetchedInfo : {};
-};
+// let fetchedInfo = {};
+// if (!isEmpty(user)) {
+//   user = user.get({ plain: true });
+//   fetchedInfo = {
+//     id: user.id,
+//     name: user.name,
+//     email: user.email,
+//     phone: user.phone,
+//   };
+// }
+// return Object.keys(fetchedInfo).length > 0 ? fetchedInfo : {};
+// };
 
 const isUserExistCheck = async (userId) => {
   const user = await models.user.findOne({
