@@ -3,8 +3,9 @@ const config = require("../config");
 
 const secret = config.jwtSecret;
 
-const generateToken = (email) => {
+const generateToken = (id,email) => {
   const payload = {
+    id,
     email,
     exp: Math.floor(Date.now() / 1000) + 60 * 60, //1hr
   };
