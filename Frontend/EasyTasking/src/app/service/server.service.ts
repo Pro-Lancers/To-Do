@@ -48,5 +48,4 @@ export class ServerService {
   loginUser(user:User) {
     return this.http.post<User>(this._baseApiUrl + 'users/login',user);
   }
-  
 }

@@ -5,7 +5,6 @@ const { sequelize, models } = require("../loaders/sequelize");
 const config = require("../config");
 const { uuid } = require("uuidv4");
 
-
 const saltRounds = config.saltRound;
 const salt = bcrypt.genSaltSync(saltRounds);
 
@@ -27,21 +26,30 @@ const loginUser = async (userData) => {
   }
   return false;
 };
-const getUserInfo = async (email) => {
+const getUserInfo = async (userId, email) => {
+  let criteria = {};
+  if (!userId) {
+    criteria = { email: email };
+  }
+  if (!email) {
+    criteria = { id: userId };
+  }
+
   let user = await models.user.findOne({
-    where: { email: email },
+    where: { ...criteria },
   });
-  let fetchedInfo ={}
+
+  let fetchedInfo = {};
   if (!isEmpty(user)) {
     user = user.get({ plain: true });
     fetchedInfo = {
       id: user.id,
       name: user.name,
       email: user.email,
-      phone:user.phone
-    }
+      phone: user.phone,
+    };
   }
-  return Object.keys(fetchedInfo).length>0 ? fetchedInfo : {}
+  return Object.keys(fetchedInfo).length > 0 ? fetchedInfo : {};
 };
 
 const isUserExistCheck = async (userId) => {
