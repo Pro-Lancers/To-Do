@@ -27,6 +27,22 @@ const loginUser = async (userData) => {
   }
   return false;
 };
+const getUserInfo = async (email) => {
+  let user = await models.user.findOne({
+    where: { email: email },
+  });
+  let fetchedInfo ={}
+  if (!isEmpty(user)) {
+    user = user.get({ plain: true });
+    fetchedInfo = {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      phone:user.phone
+    }
+  }
+  return Object.keys(fetchedInfo).length>0 ? fetchedInfo : {}
+};
 
 const isUserExistCheck = async (userId) => {
   const user = await models.user.findOne({
@@ -39,4 +55,4 @@ const isUserExistCheck = async (userId) => {
       code: httpStatusCodes.NOT_FOUND,
     };
 };
-module.exports = { createUser, loginUser, isUserExistCheck };
+module.exports = { createUser, loginUser, getUserInfo, isUserExistCheck };

@@ -56,7 +56,7 @@ export class AuthComponent implements OnInit {
     } else if (form === 'auth' && this.loginForm.valid) {
       this.server.loginUser({ ...this.loginForm.value }).subscribe((response: any) => {
         if (response.success) {
-          localStorage.setItem('auth_token', response.data.token)
+          console.log("user : ",response)
           this.cookieService.setCookie('auth_token', response.data.token, 1)
           this.router.navigate(['/dashboard'])
         }

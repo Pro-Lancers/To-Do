@@ -19,8 +19,9 @@ class UserController {
       Logger.log("info", "Logging in User");
       const isAuthuser = await UserService.loginUser(req.body);
       if (isAuthuser) {
+        const user = await UserService.getUserInfo(req.body.email)
         const userToken = TokenService.generateToken(req.body.email);
-        Response.success(res, "success", { isAuth: true, token: userToken });
+        Response.success(res, "success", { isAuth: true, token: userToken , ...user});
       } else {
         Response.fail(res, "unauthorised", httpStatusCodes.UNAUTHORIZED);
       }
