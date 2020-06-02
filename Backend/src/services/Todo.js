@@ -8,7 +8,6 @@ const config = require("../config");
 const getAllTodosOfUser = (userId) =>
   models.todo.findAll({
     where: {
-      attributes: {exclude:['userId']},
       userId,
     },
   });

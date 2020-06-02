@@ -1,4 +1,4 @@
-enum TodoLabel {
+export enum TodoLabel {
   WORK = 'WORK',
   EDUCATION = 'EDUCATION',
   HOME = 'HOME',

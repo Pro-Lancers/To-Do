@@ -14,27 +14,19 @@ export class AuthService {
   CurrentUser: any = {};
 
   // tslint:disable-next-line:variable-name
-  private readonly _baseApiUrl = environment.baseUrl + '/api/v1/';
+  private readonly _baseApiUrl = environment.baseApiUrl;
 
   constructor(public jwtHelper: JwtHelperService, private cookieService: CookieService, private http: HttpClient) {
   }
 
-  private getUserId() {
+  public decodeToken() {
     const token = this.cookieService.getCookie('auth_token');
-    const {id} = this.jwtHelper.decodeToken(token);
-    return id;
+    const payload = this.jwtHelper.decodeToken(token);
+    return payload;
   }
 
-  private initUserInfo(userId) {
-    return this.http.get<User>(this._baseApiUrl + 'users/' + userId).subscribe(
-      (response: any) => {
-        if (response.success) {
-          this.CurrentUser = response.data;
-        }
-      },
-      (error) => {
-        console.log('Some error occurred !');
-      });
+  public fetchUserInfo(userId) {
+    return this.http.get<User>(this._baseApiUrl + 'users/' + userId);
   }
 
   public isAuthenticated(): boolean {
@@ -51,8 +43,7 @@ export class AuthService {
     return this.http.post<User>(this._baseApiUrl + 'users/login', user);
   }
 
-  public setUserInfo() {
-    const id = this.getUserId();
-    this.initUserInfo(id);
+  public initUserInfo(obj) {
+    this.CurrentUser = obj;
   }
 }

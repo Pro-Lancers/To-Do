@@ -1,4 +1,4 @@
-enum TodoPriority {
+export enum TodoPriority {
   CRITICAL = 'CRITICAL',
   HIGHEST = 'HIGHEST',
   HIGH = 'HIGH',

@@ -5,6 +5,8 @@ import {CustomValidators} from '../../utils/custom-validators';
 import {ServerService} from '../../service/server.service';
 import {CookieService} from 'src/app/service/cookie.service';
 import {AuthService} from 'src/app/service/auth.service';
+import {TodoService} from '../../service/todo/todo.service';
+import {concatMap, tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-auth',
@@ -48,29 +50,35 @@ export class AuthComponent implements OnInit {
     if (form === 'register' && this.registrationForm.valid) {
       this.authService.registerUser({...this.registrationForm.value}).subscribe((response: any) => {
         if (response.success) {
-          this.server.successMessage('Account successfully created !')
+          this.server.successMessage('Account successfully created !');
         } else {
-          this.server.errorMessage('Some error occurred !')
+          this.server.errorMessage('Some error occurred !');
         }
       });
     } else if (form === 'auth' && this.loginForm.valid) {
       this.authService.loginUser({...this.loginForm.value}).subscribe((response: any) => {
         if (response.success) {
-          this.cookieService.setCookie('auth_token', response.data.token, 1)
-          this.router.navigate(['/dashboard'])
+          this.cookieService.setCookie('auth_token', response.data.token, 1);
+          this.router.navigate(['/dashboard']);
         }
-      })
+      });
     }
   }
 
   // tslint:disable-next-line:max-line-length
-  constructor(private router: Router, private activatedRouter: ActivatedRoute, private server: ServerService, private cookieService: CookieService, private authService: AuthService) {
+  constructor(private router: Router, private activatedRouter: ActivatedRoute, private server: ServerService, private cookieService: CookieService, private authService: AuthService, private todoService: TodoService) {
   }
 
   ngOnInit(): void {
     if (this.authService.isAuthenticated()) {
-      this.authService.setUserInfo();
-      this.router.navigate(['/dashboard']);
+      const payload = this.authService.decodeToken();
+      this.authService.fetchUserInfo(payload.id)
+        .pipe(
+          tap((res: any) => {if (res.success){console.log('user :', res.data); this.authService.initUserInfo(res.data); }} ),
+          concatMap((res: { id }) => this.todoService.fetchTodoList()),
+          tap((res: any) => {if (res.success){console.log('todo :', res.data); this.todoService.initTodoList(res.data); }}),
+        )
+        .subscribe(res => this.router.navigate(['/dashboard']));
     } else {
       this.activatedRouter.params.subscribe(arg => {
         if (arg.param === 'signup') {
