@@ -3,14 +3,9 @@ import {JwtHelperService} from '@auth0/angular-jwt';
 import {CookieService} from './cookie.service';
 import {environment} from '../../environments/environment';
 import {HttpClient} from '@angular/common/http';
+// @ts-ignore
+import {User} from '../utils/custom-types/user/user';
 
-interface User {
-  name?: string;
-  email: string;
-  password: string;
-  gender?: string;
-  phone?: string;
-}
 
 @Injectable({
   providedIn: 'root'
@@ -33,13 +28,13 @@ export class AuthService {
   private initUserInfo(userId) {
     return this.http.get<User>(this._baseApiUrl + 'users/' + userId).subscribe(
       (response: any) => {
-                if (response.success) {
-                  this.CurrentUser = response.data;
-                }
-            },
+        if (response.success) {
+          this.CurrentUser = response.data;
+        }
+      },
       (error) => {
-                console.log('Some error occurred !');
-            });
+        console.log('Some error occurred !');
+      });
   }
 
   public isAuthenticated(): boolean {
