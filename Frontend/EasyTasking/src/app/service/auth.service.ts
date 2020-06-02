@@ -24,25 +24,10 @@ export class AuthService {
   constructor(public jwtHelper: JwtHelperService, private cookieService: CookieService, private http: HttpClient) {
   }
 
-
-  public isAuthenticated(): boolean {
-    const token = this.cookieService.getCookie('auth_token');
-    return token.length !== 0 || !this.jwtHelper.isTokenExpired(token);
-  }
-
   private getUserId() {
     const token = this.cookieService.getCookie('auth_token');
     const {id} = this.jwtHelper.decodeToken(token);
     return id;
-  }
-
-  public registerUser(user: User) {
-    !user.phone ? delete user.phone : '';
-    return this.http.post<User>(this._baseApiUrl + 'users', user);
-  }
-
-  public loginUser(user: User) {
-    return this.http.post<User>(this._baseApiUrl + 'users/login', user);
   }
 
   private initUserInfo(userId) {
@@ -54,6 +39,20 @@ export class AuthService {
       (error => {
         console.log('Some error occurred !');
       }));
+  }
+
+  public isAuthenticated(): boolean {
+    const token = this.cookieService.getCookie('auth_token');
+    return token.length !== 0 || !this.jwtHelper.isTokenExpired(token);
+  }
+
+  public registerUser(user: User) {
+    !user.phone ? delete user.phone : '';
+    return this.http.post<User>(this._baseApiUrl + 'users', user);
+  }
+
+  public loginUser(user: User) {
+    return this.http.post<User>(this._baseApiUrl + 'users/login', user);
   }
 
   public setUserInfo() {
