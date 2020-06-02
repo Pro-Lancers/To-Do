@@ -30,22 +30,22 @@ export class AuthService {
     return token.length !== 0 || !this.jwtHelper.isTokenExpired(token);
   }
 
-  public getUserId() {
+  private getUserId() {
     const token = this.cookieService.getCookie('auth_token');
     const {id} = this.jwtHelper.decodeToken(token);
     return id;
   }
 
-  registerUser(user: User) {
+  public registerUser(user: User) {
     !user.phone ? delete user.phone : '';
     return this.http.post<User>(this._baseApiUrl + 'users', user);
   }
 
-  loginUser(user: User) {
+  public loginUser(user: User) {
     return this.http.post<User>(this._baseApiUrl + 'users/login', user);
   }
 
-  initUserInfo(userId) {
+  private initUserInfo(userId) {
     return this.http.get<User>(this._baseApiUrl + 'users/' + userId).subscribe((response: any) => {
         if (response.success) {
           this.CurrentUser = response.data;
@@ -56,7 +56,8 @@ export class AuthService {
       }));
   }
 
-  setUserInfo(userId) {
-    this.initUserInfo(userId);
+  public setUserInfo() {
+    const id = this.getUserId();
+    this.initUserInfo(id);
   }
 }

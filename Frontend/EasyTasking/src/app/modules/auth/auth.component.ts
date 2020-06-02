@@ -69,8 +69,7 @@ export class AuthComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.authService.isAuthenticated()) {
-      const id = this.authService.getUserId();
-      this.authService.setUserInfo(id);
+      this.authService.setUserInfo();
       this.router.navigate(['/dashboard']);
     } else {
       this.activatedRouter.params.subscribe(arg => {
