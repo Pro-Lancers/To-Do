@@ -31,14 +31,15 @@ export class AuthService {
   }
 
   private initUserInfo(userId) {
-    return this.http.get<User>(this._baseApiUrl + 'users/' + userId).subscribe((response: any) => {
-        if (response.success) {
-          this.CurrentUser = response.data;
-        }
-      },
-      (error => {
-        console.log('Some error occurred !');
-      }));
+    return this.http.get<User>(this._baseApiUrl + 'users/' + userId).subscribe(
+      (response: any) => {
+                if (response.success) {
+                  this.CurrentUser = response.data;
+                }
+            },
+      (error) => {
+                console.log('Some error occurred !');
+            });
   }
 
   public isAuthenticated(): boolean {
