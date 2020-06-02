@@ -1,4 +1,4 @@
-interface Todo {
+export interface Todo {
   taskId: string;
   task: string;
   stage: TodoStage;
