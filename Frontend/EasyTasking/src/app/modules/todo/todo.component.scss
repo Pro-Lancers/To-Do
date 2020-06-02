@@ -53,6 +53,78 @@
     }
 }
 
+// Mobile Filters
+
+.filter-wrapper {
+    position: relative;
+    display: flex;
+    margin-top: 40px;
+    margin-bottom: 25px;
+
+    .selection {
+        position: relative;
+        width: 140px;
+        font-size: 14px;
+        padding: 5px 10px;
+        border: 1px solid gainsboro;
+        margin-right: 15px;
+        border-radius: 5px;
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        .fil-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+
+            img {
+                height: 10px;
+            }
+        }
+
+
+        .filter-options {
+            position: absolute;
+            display: none;
+            // margin-top: 10px;
+            background: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            left: 0;
+            z-index: 2;
+            transition: all 0.3s ease-out;
+            width: 170px;
+
+            .filter-ele {
+                cursor: pointer;
+                position: relative;
+                padding: 10px 15px;
+
+                img {
+                    position: relative;
+                    width: 15px;
+                    margin-right: 10px;
+                }
+
+                span {
+                    position: relative;
+                }
+
+                &:hover {
+                    background: var(--light-gray-alt);
+                }
+            }
+        }
+
+        &:hover .filter-options {
+            display: block;
+        }
+    }
+}
+
 .body {
     .cards-wrapper {
         img {
@@ -72,6 +144,29 @@
             border-radius: 6px;
             display: inline-block;
             margin: 15px;
+
+            .new-task {
+                width: 100%;
+                height: 150px;
+                border-radius: 6px;
+                background: var(--secondary);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: var(--main-color);
+                cursor: pointer;
+            }
+        }
+
+        .add-card {
+            background: var(--secondary);
+            color: var(--main-color);
+            transition: all 0.3s ease-out;
+        }
+
+        .new-card {
+            height: 100%;
+            padding: 15px 5px;
         }
 
         .card-content {
@@ -85,6 +180,224 @@
 
             small {
                 position: relative;
+            }
+        }
+
+        .card-status {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 14px;
+            text-transform: uppercase;
+
+            svg {
+                height: 24px;
+                fill: white;
+                cursor: pointer;
+            }
+
+            .option {
+                width: 180px;
+                background: white;
+                position: absolute;
+                z-index: 10;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+                border-radius: 5px;
+                color: black;
+                font-size: 12px;
+                display: none;
+                text-transform: capitalize;
+
+                &-ele {
+                    position: relative;
+                    padding: 8px 15px;
+                    cursor: pointer;
+                    transition: all 0.3s ease-out;
+
+                    &:first-child {
+                        padding-top: 15px;
+                    }
+
+                    &:last-child {
+                        padding-bottom: 15px;
+                    }
+
+                    &:hover {
+                        padding-left: 20px;
+                    }
+                }
+            }
+
+            .menu:hover .option {
+                display: block;
+            }
+        }
+
+        .new-form {
+            color: black;
+
+            .closer {
+                position: absolute;
+                top: 5px;
+                line-height: 1;
+                right: 5px;
+                transition: all 0.3s ease-out;
+                font-weight: 600;
+                width: 15px;
+                height: 15px;
+                cursor: pointer;
+                z-index: 5;
+
+                &:hover {
+                    color: var(--main-color);
+                }
+            }
+
+            .inputs-wrapper {
+                position: relative;
+            }
+
+            .input-wrapper {
+                position: relative;
+                margin: 10px;
+                width: calc(100% - 20px);
+
+                span {
+                    display: block;
+                    margin-bottom: 5px;
+                    font-size: 14px;
+                }
+
+                input,
+                select {
+                    position: relative;
+                    width: 100%;
+                    padding: 2px 5px;
+                    outline: none;
+                    border: none;
+                    border-radius: 3px;
+                    color: #616161;
+                }
+            }
+
+            button {
+                outline: none;
+                border: none;
+                width: max-content;
+                background: transparent;
+                border-radius: 3px;
+                color: var(--main-color);
+                display: block;
+                padding: 3px 10px 5px;
+                margin: 15px 10px 15px auto;
+                line-height: 1;
+                transition: all 0.3s ease-out;
+
+                &:hover {
+                    background: var(--light-gray-alt);
+                }
+            }
+        }
+    }
+}
+
+.edit-wrapper {
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    left: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 52;
+
+    .overlay {
+        position: fixed;
+        top: 0;
+        width: 100vw;
+        left: 0;
+        height: 100vh;
+        z-index: 0;
+        background: rgba(0, 0, 0, 0.8);
+    }
+
+    .card-container {
+        position: relative;
+        width: 250px;
+        z-index: 1;
+        background: var(--main-color);
+        color: white;
+        border-radius: 6px;
+        display: inline-block;
+        margin: 15px;
+        background: var(--secondary);
+        color: var(--main-color);
+        padding: 15px 5px;
+    }
+
+    .new-form {
+        color: black;
+
+        .closer {
+            position: absolute;
+            top: 5px;
+            line-height: 1;
+            right: 5px;
+            transition: all 0.3s ease-out;
+            font-weight: 600;
+            width: 15px;
+            height: 15px;
+            cursor: pointer;
+            z-index: 5;
+
+            &:hover {
+                color: var(--main-color);
+            }
+        }
+
+        .inputs-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper {
+            position: relative;
+            margin: 10px;
+            width: calc(100% - 20px);
+
+            span {
+                display: block;
+                margin-bottom: 5px;
+                font-size: 14px;
+            }
+
+            input,
+            select {
+                position: relative;
+                width: 100%;
+                padding: 2px 5px;
+                outline: none;
+                border: none;
+                border-radius: 3px;
+                color: #616161;
+            }
+        }
+
+        button {
+            outline: none;
+            border: none;
+            width: max-content;
+            background: transparent;
+            border-radius: 3px;
+            color: var(--main-color);
+            display: block;
+            padding: 3px 10px 5px;
+            margin: 15px 10px 15px auto;
+            line-height: 1;
+            transition: all 0.3s ease-out;
+
+            &:hover {
+                background: var(--light-gray-alt);
             }
         }
     }

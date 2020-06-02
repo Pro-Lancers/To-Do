@@ -7,6 +7,10 @@
       transparent 50%,
       var(--main-color) 50%);
 
+  .hero-title img {
+    height: 30px;
+  }
+
   .auth-container {
     height: 100%;
   }
@@ -50,11 +54,15 @@
     margin: 40px auto;
     justify-content: space-between;
 
+    a {
+      width: 48%;
+    }
+
     .button {
       background: var(--light-gray-alt);
       border: none;
       border-radius: 5px;
-      width: 48%;
+      width: 100%;
       padding: 5px;
       font-weight: 500;
     }
@@ -215,6 +223,8 @@
 .design-section {
   .content-wrapper {
     color: white;
+    max-width: 500px;
+    margin-left: 15px;
 
     .text .title {
       color: var(--main-color);
@@ -223,6 +233,25 @@
 
     .t1 {
       position: relative;
+      margin-left: auto;
+      text-align: right;
+    }
+
+    .t2 {
+      margin: 15px 0;
+    }
+
+    .text {
+      max-width: 250px;
+    }
+
+    img {
+      width: 200px;
+    }
+
+    .img-2 {
+      margin-left: auto;
+      display: block;
     }
   }
 }

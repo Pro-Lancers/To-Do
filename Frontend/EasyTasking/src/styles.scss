@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Muli:wght@200;300;400;500;600;700&display=swap');
+
 :root {
     --main-color: #ec7c7c;
     --secondary: #ececec;
@@ -9,6 +11,7 @@ html,
 body {
     margin: 0;
     padding: 0;
+    font-family: 'Muli', sans-serif;
 }
 
 ::-webkit-scrollbar {
@@ -42,7 +45,7 @@ button:focus {
     outline: none;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 991px) {
     .pc-only {
         display: none;
     }

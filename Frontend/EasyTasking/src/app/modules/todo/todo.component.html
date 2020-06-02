@@ -1,15 +1,69 @@
 <app-header></app-header>
 <main class="container">
     <div class="row">
-        <section class="col-lg-3 filters">
+        <section class="col-12 mobile-only">
+            <div class="filter-wrapper">
+                <div class="selection">
+                    <div class="fil-header">
+                        <div class="name">{{filter}}</div>
+                        <img src="assets\icons\pointer.png">
+                    </div>
+                    <div class="filter-options">
+                        <div (click)="filterSelect('All')" class="filter-ele">
+                            <img src="assets/icons/all-icon.svg">
+                            <span>All</span>
+                        </div>
+                        <div (click)="filterSelect('InProgress')" class="filter-ele">
+                            <img src="assets/icons/progress-icon.svg">
+                            <span>InProgress</span>
+                        </div>
+                        <div (click)="filterSelect('completed')" class="filter-ele">
+                            <img src="assets/icons/completed-icon.svg">
+                            <span>completed</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="selection">
+                    <div class="fil-header">
+                        <div class="name">{{Category}}</div>
+                        <img src="assets\icons\pointer.png">
+                    </div>
+                    <div class="filter-options">
+                        <div (click)="categorySelect('Category')" class="filter-ele">
+                            <img src="assets/icons/all-icon.svg">
+                            <span>All</span>
+                        </div>
+                        <div (click)="categorySelect('Work')" class="filter-ele">
+                            <img src="assets/icons/Work-icon.svg">
+                            <span>Work</span>
+                        </div>
+                        <div (click)="categorySelect('Personal')" class="filter-ele">
+                            <img src="assets/icons/personal-icon.svg">
+                            <span>Personal</span>
+                        </div>
+                        <div (click)="categorySelect('Shopping')" class="filter-ele">
+                            <img src="assets/icons/Shopping-icon.svg">
+                            <span>Shopping</span>
+                        </div>
+                        <div (click)="categorySelect('Others')" class="filter-ele">
+                            <img src="assets/icons/other-icon.svg">
+                            <span>Others</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="col-lg-3 pc-only filters">
             <div class="filter-ele fill-btn">
                 <span class="img">+</span>
                 <span>Add Task</span>
             </div>
-            <div class="filter-ele">
+            <!-- <div class="filter-ele">
                 <img src="assets/icons/new-icon.svg">
                 <span>New</span>
-            </div>
+            </div> -->
             <div class="filter-ele">
                 <img src="assets/icons/all-icon.svg">
                 <span>All</span>
@@ -22,10 +76,10 @@
                 <img src="assets/icons/completed-icon.svg">
                 <span>completed</span>
             </div>
-            <div class="filter-ele">
+            <!-- <div class="filter-ele">
                 <img src="assets/icons/bin-icon.svg">
                 <span>Bin</span>
-            </div>
+            </div> -->
             <div class="filter-ele filter-name">
                 Category
             </div>
@@ -58,19 +112,63 @@
 
                         <!-- TODO Card -->
                         <div *ngFor="let todo of todoList; let i=index" class="et-card card-container">
-                            <img src="assets/icons/work-label.svg">
-                            <img src="assets/icons/personal-label.svg">
-                            <img src="assets/icons/shopping-label.svg">
-                            <img src="assets/icons/other-label.svg">
+                            <img *ngIf="todo.label.toUpperCase() == 'WORK'" src="assets/icons/work-label.svg">
+                            <img *ngIf="todo.label.toUpperCase() == 'PERSONAL'" src="assets/icons/personal-label.svg">
+                            <img *ngIf="todo.label.toUpperCase() == 'SHOPPING'" src="assets/icons/shopping-label.svg">
+                            <img *ngIf="todo.label.toUpperCase() == 'OTHERS'" src="assets/icons/other-label.svg">
                             <div class="card-content">
-                                <small>Due date: 08/10/2020</small>
-                                <h6>Complete Dashboard</h6>
+                                <small>Last date: {{todo.dueDate | date: 'dd/MM/yyyy'}}</small>
+                                <h6>{{todo.task}}</h6>
+                            </div>
+                            <div class="card-status">{{todo.stage}}
+                                <span class="menu" style="height:20px;line-height:20px;width:20px"><svg
+                                        focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path
+                                            d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z">
+                                        </path>
+                                    </svg>
+                                    <div class="option">
+                                        <div (click)="menu(todo, i,'edit')" class="option-ele">Edit</div>
+                                        <div (click)="menu(todo, i,'inProgress')" class="option-ele">In-Progress</div>
+                                        <div (click)="menu(todo, i,'complete')" class="option-ele">Completed</div>
+                                        <div (click)="menu(todo, i,'delete')" class="option-ele">Delete</div>
+                                    </div>
+                                </span>
                             </div>
                         </div>
 
                         <!-- New Todo ard -->
-                        <div class="card-container">
-                            New card
+                        <div [ngClass]="{'new-card': isNewTask}" class="card-container add-card">
+                            <div *ngIf="!isNewTask" (click)="isNewTask = true" class="new-task">
+                                + Add Task
+                            </div>
+                            <div *ngIf="isNewTask" class="new-form">
+                                <div class="closer" (click)="isNewTask = false">x</div>
+                                <div class="inputs-wrapper">
+                                    <form>
+                                        <div class="input-wrapper">
+                                            <span> Task : </span>
+                                            <input type="text" placeholder="Task Name" class="form-input" />
+                                        </div>
+                                        <div class="input-wrapper">
+                                            <span> Last date : </span>
+                                            <input type="date" placeholder="Date" class="form-input" />
+                                        </div>
+                                        <div class="input-wrapper">
+                                            <span> Label : </span>
+                                            <select name="label" [(ngModel)]="sampleSelect">
+                                                <option [value]="'WORK'">Work</option>
+                                                <option [value]="'PERSONAL'" selected>Personal</option>
+                                                <option [value]="'SHOPPING'">Shopping</option>
+                                                <option [value]="'OTHERS'">Others</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-footer">
+                                            <button>save</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -78,3 +176,36 @@
         </section>
     </div>
 </main>
+
+<div *ngIf="isEdit" class="edit-wrapper">
+    <div (click)="isEdit = false" class="overlay"></div>
+    <div class="card-container add-card">
+        <div class="new-form">
+            <div class="closer" (click)="isEdit = false">x</div>
+            <div class="inputs-wrapper">
+                <div>
+                    <div class="input-wrapper">
+                        <span> Task : </span>
+                        <input type="text" placeholder="Task Name" [(ngModel)]="editData.task" class="form-input" />
+                    </div>
+                    <div class="input-wrapper">
+                        <span> Last date : </span>
+                        <input type="date" placeholder="Date" [(ngModel)]="editData.dueDate" class="form-input" />
+                    </div>
+                    <div class="input-wrapper">
+                        <span> Label : </span>
+                        <select name="label" [(ngModel)]="editData.label">
+                            <option [value]="'WORK'">Work</option>
+                            <option [value]="'PERSONAL'" selected>Personal</option>
+                            <option [value]="'SHOPPING'">Shopping</option>
+                            <option [value]="'OTHERS'">Others</option>
+                        </select>
+                    </div>
+                    <div class="form-footer">
+                        <button (click)="editTask()">save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

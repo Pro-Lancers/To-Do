@@ -12,7 +12,7 @@ const routes: Routes = [
   },
   {
     path: 'dashboard',
-    canActivate: [AuthGuardService],
+    // canActivate: [AuthGuardService],
     loadChildren: () => import('./modules/todo/todo.module').then(m => m.TodoModule)
   },
 ];

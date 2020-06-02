@@ -2,7 +2,9 @@
   <div class="container-fluid h-100">
     <div class="row">
       <div class="col">
-        <div class="hero-title">EasyTasking</div>
+        <div class="hero-title">
+          <a routerLink=''> <img src="assets/icons/logo.svg"></a>
+        </div>
       </div>
     </div>
     <div class="row h-100">
@@ -10,12 +12,12 @@
         <div class="form-container">
           <div class="form-wrapper">
             <div class="selection">
-              <button [ngClass]="{ active: isLogin }" class="button" routerLink="/authenticate/login">
-                Login
-              </button>
-              <button [ngClass]="{ active: !isLogin }" class="button" routerLink="/authenticate/signup">
-                Signup
-              </button>
+              <a [routerLink]="[ '/authenticate', 'login' ]">
+                <button [ngClass]="{ active: isLogin }" class="button">
+                  Login</button></a>
+              <a [routerLink]="[ '/authenticate', 'signup' ]">
+                <button [ngClass]="{ active: !isLogin }" class="button">
+                  Signup</button></a>
             </div>
 
             <!-- *******************Login******************* -->
@@ -135,12 +137,12 @@
             <div class="title">To-do list</div>
             <div class="description">Make your work easy and organize it by EasyTasking</div>
           </div>
-          <img src="" class="img-1">
+          <img src="assets\images\todo2.svg" class="img-1">
           <div class="text t2">
             <div class="title">Set Priority</div>
             <div class="description">Make your work easy and organize it by EasyTasking</div>
           </div>
-          <img src="" class="img-2">
+          <img src="assets\images\todo1.svg" class="img-2">
         </div>
       </div>
     </div>
