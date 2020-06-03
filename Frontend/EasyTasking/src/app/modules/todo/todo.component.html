@@ -144,7 +144,7 @@
                             </div>
                             <div *ngIf="isNewTask" class="new-form">
 
-                                <div class="closer" (click)="resetAddTaskForm()">x</div>
+                                <div class="closer" (click)="resetForm()">x</div>
                                 <div class="inputs-wrapper">
                                     <form [formGroup]="newTaskFormGroup" (ngSubmit)="addNewTask()">
                                         <div class="input-wrapper">
@@ -213,7 +213,7 @@
     <div (click)="isEdit = false" class="overlay"></div>
     <div class="card-container add-card">
         <div class="new-form">
-            <div class="closer" (click)="isEdit = false">x</div>
+            <div class="closer" (click)="resetForm()">x</div>
             <form [formGroup]="editTaskFormGroup" (ngSubmit)="editTask()">
                 <div class="inputs-wrapper">
                     <div>

@@ -66,15 +66,11 @@ export class TodoComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    console.log("Dashboard :", this.authService.CurrentUser)
-    // this.todoService.fetchTodoList()
-
     this.todoService.fetchTodoList().subscribe((response: any) => {
       if (response.success) {
         for (let i = 0; i < response.data.length; i++) {
           this.todoList.push(response.data[i])
         }
-        console.log(this.todoList)
       }
     })
   }
@@ -86,9 +82,15 @@ export class TodoComponent implements OnInit {
     return this.editTaskFormGroup.controls;
   }
 
-  resetAddTaskForm() {
+  resetForm() {
     this.isNewTask = false
     this.isAddingTask = false
+
+    this.isEdit = false
+    this.isUpdatingTask = false
+
+    this.newTaskFormGroup.reset()
+    this.editTaskFormGroup.reset()
   }
 
   menu(data, i, filter): void {
@@ -132,13 +134,12 @@ export class TodoComponent implements OnInit {
 
   addNewTask() {
     this.isAddingTask = true;
-    console.log('works')
     if (this.newTaskFormGroup.valid) {
       this.todoService.addTask({ ...this.newTaskFormGroup.value }).subscribe((response: any) => {
-        console.log(response)
         if (response.success) {
           this.updateTodoArr(response.data);
           this.utils.successMessage("Task added to list !")
+          this.resetForm();
         } else {
           this.utils.errorMessage("Failed to add task !")
         }
@@ -154,11 +155,11 @@ export class TodoComponent implements OnInit {
         ...this.editTaskFormGroup.value,
         taskId: this.currentEditingTask.id.toString(),
       }
-      console.log("update :",updatedTask)
       this.todoService.editTask(updatedTask).subscribe((response: any) => {
         if (response.success) {
           this.utils.successMessage("Task updated !")
           this.todoList[this.currentEditingTask.originalIndex] = response.data
+          this.resetForm();
         } else {
           this.utils.errorMessage("Failed to update task !")
         }
