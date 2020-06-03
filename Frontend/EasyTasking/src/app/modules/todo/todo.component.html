@@ -118,7 +118,7 @@
                             <img *ngIf="todo.label.toUpperCase() == 'OTHERS'" src="assets/icons/other-label.svg">
                             <div class="card-content">
                                 <small>Last date: {{todo.dueDate | date: 'dd/MM/yyyy'}}</small>
-                                <h6>{{todo.task}}</h6>
+                                <h6>{{todo.todoItem}}</h6>
                             </div>
                             <div class="card-status">{{todo.stage}}
                                 <span class="menu" style="height:20px;line-height:20px;width:20px"><svg
@@ -143,31 +143,63 @@
                                 + Add Task
                             </div>
                             <div *ngIf="isNewTask" class="new-form">
-                                <div class="closer" (click)="isNewTask = false">x</div>
+
+                                <div class="closer" (click)="resetAddTaskForm()">x</div>
                                 <div class="inputs-wrapper">
-                                    <form>
+                                    <form [formGroup]="newTaskForm" (ngSubmit)="addNewTask()">
                                         <div class="input-wrapper">
                                             <span> Task : </span>
-                                            <input type="text" placeholder="Task Name" class="form-input" />
+                                            <input type="text" placeholder="Task Name" class="form-input" formControlName="taskName" />
                                         </div>
+                                      <div *ngIf="(addTaskForm.taskName.touched || isAddingTask) && addTaskForm.taskName.invalid"
+                                           class="alert alert-dismissible alert-danger">
+                                        <span *ngIf="addTaskForm.taskName.errors.required">Name is required.</span>
+                                        <span *ngIf="addTaskForm.taskName.errors.minlength">Name should be 3 character.</span>
+                                      </div>
                                         <div class="input-wrapper">
                                             <span> Last date : </span>
-                                            <input type="date" placeholder="Date" class="form-input" />
+                                            <input type="date" placeholder="Date" class="form-input" formControlName="taskDeadline"/>
                                         </div>
+                                      <div *ngIf="(addTaskForm.taskDeadline.touched || isAddingTask) && addTaskForm.taskDeadline.invalid"
+                                           class="alert alert-dismissible alert-danger">
+                                        <span *ngIf="addTaskForm.taskDeadline.errors.required">Set a rough deadline.</span>
+                                      </div>
                                         <div class="input-wrapper">
                                             <span> Label : </span>
-                                            <select name="label" [(ngModel)]="sampleSelect">
-                                                <option [value]="'WORK'">Work</option>
-                                                <option [value]="'PERSONAL'" selected>Personal</option>
-                                                <option [value]="'SHOPPING'">Shopping</option>
-                                                <option [value]="'OTHERS'">Others</option>
+                                            <select name="label"  formControlName="taskLabel">
+                                              <option value="" selected>Choose a label</option>
+                                                <option value="WORK">Work</option>
+                                                <option value="EDUCATION">Education</option>
+                                                <option value="PERSONAL" >Personal</option>
+                                                <option value="SHOPPING">Shopping</option>
+                                                <option value="OTHERS">Others</option>
                                             </select>
                                         </div>
+                                      <div *ngIf="(addTaskForm.taskLabel.touched || isAddingTask) && addTaskForm.taskLabel.invalid"
+                                           class="alert alert-dismissible alert-danger">
+                                        <span *ngIf="addTaskForm.taskLabel.errors?.required">Select a label.</span>
+                                      </div>
+                                      <div class="input-wrapper">
+                                        <span> Priority : </span>
+                                        <select name="label"  formControlName="taskPriority">
+                                          <option value="" selected>Choose task priority</option>
+                                            <option value="URGENT">Urgent</option>
+                                            <option value="HIGH">High</option>
+                                            <option value="MEDIUM">Medium</option>
+                                            <option value="LOW">Low</option>
+                                        
+                                        </select>
+                                    </div>
+                                        <div *ngIf="(addTaskForm.taskPriority.touched || isAddingTask) && addTaskForm.taskPriority.invalid"
+                                            class="alert alert-dismissible alert-danger">
+                                            <span *ngIf="addTaskForm.taskPriority.errors?.required">Select a priority.</span>
+                                        </div>
                                         <div class="form-footer">
-                                            <button>save</button>
+                                            <button type="submit" >Save</button>
                                         </div>
                                     </form>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -195,10 +227,23 @@
                     <div class="input-wrapper">
                         <span> Label : </span>
                         <select name="label" [(ngModel)]="editData.label">
+                            <option value="" selected>Choose a label</option>
                             <option [value]="'WORK'">Work</option>
                             <option [value]="'PERSONAL'" selected>Personal</option>
+                            <option [value]="'EDUCATION'">Education</option>
                             <option [value]="'SHOPPING'">Shopping</option>
                             <option [value]="'OTHERS'">Others</option>
+                        </select>
+                    </div>
+                    <div class="input-wrapper">
+                        <span> Priority : </span>
+                        <select name="label" >
+                          <option value="" selected>Choose task priority</option>
+                            <option value="URGENT">Urgent</option>
+                            <option value="HIGH">High</option>
+                            <option value="MEDIUM">Medium</option>
+                            <option value="LOW">Low</option>
+                        
                         </select>
                     </div>
                     <div class="form-footer">

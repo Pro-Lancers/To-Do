@@ -5,18 +5,24 @@ import {environment} from '../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 // @ts-ignore
 import {User} from '../utils/custom-types/user/user';
+import {concatMap, tap} from 'rxjs/operators';
+import {TodoService} from './todo/todo.service';
+import {Router} from '@angular/router';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  CurrentUser: any = {};
+  public CurrentUser: any = {};
 
   // tslint:disable-next-line:variable-name
   private readonly _baseApiUrl = environment.baseApiUrl;
 
-  constructor(public jwtHelper: JwtHelperService, private cookieService: CookieService, private http: HttpClient) {
+  constructor(private router: Router, public jwtHelper: JwtHelperService, private cookieService: CookieService, private http: HttpClient) {
+    if(this.isAuthenticated()){
+      this.initSession()
+    }
   }
 
   public decodeToken() {
@@ -45,5 +51,26 @@ export class AuthService {
 
   public initUserInfo(obj) {
     this.CurrentUser = obj;
+  }
+
+  public initSession() {
+    const payload = this.decodeToken();
+    this.fetchUserInfo(payload.id)
+      .pipe(
+        tap((res: any) => {
+          if (res.success) {
+            console.log('user :', res.data);
+            this.initUserInfo(res.data);
+          }
+        }),
+        // concatMap((res: { id }) => this.todoService.fetchTodoList()),
+        // tap((res: any) => {
+        //   if (res.success) {
+        //     console.log('todo :', res.data);
+        //     this.todoService.initTodoList(res.data);
+        //   }
+        // }),
+      )
+      .subscribe(res => this.router.navigate(['/dashboard']));
   }
 }

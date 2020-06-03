@@ -59,6 +59,7 @@ export class AuthComponent implements OnInit {
       this.authService.loginUser({...this.loginForm.value}).subscribe((response: any) => {
         if (response.success) {
           this.cookieService.setCookie('auth_token', response.data.token, 1);
+          this.authService.initSession();
           this.router.navigate(['/dashboard']);
         }
       });
@@ -67,18 +68,14 @@ export class AuthComponent implements OnInit {
 
   // tslint:disable-next-line:max-line-length
   constructor(private router: Router, private activatedRouter: ActivatedRoute, private server: ServerService, private cookieService: CookieService, private authService: AuthService, private todoService: TodoService) {
+    
   }
 
   ngOnInit(): void {
+    console.log("executing oninit")
     if (this.authService.isAuthenticated()) {
-      const payload = this.authService.decodeToken();
-      this.authService.fetchUserInfo(payload.id)
-        .pipe(
-          tap((res: any) => {if (res.success){console.log('user :', res.data); this.authService.initUserInfo(res.data); }} ),
-          concatMap((res: { id }) => this.todoService.fetchTodoList()),
-          tap((res: any) => {if (res.success){console.log('todo :', res.data); this.todoService.initTodoList(res.data); }}),
-        )
-        .subscribe(res => this.router.navigate(['/dashboard']));
+      console.log("starting")
+      this.authService.initSession();
     } else {
       this.activatedRouter.params.subscribe(arg => {
         if (arg.param === 'signup') {
