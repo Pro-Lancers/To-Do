@@ -1,6 +1,6 @@
-import { TodoStage } from './todo-stage';
-import { TodoPriority } from './todo-priority';
-import { TodoLabel } from './todo-label';
+import {TodoStage} from './todo-stage';
+import {TodoPriority} from './todo-priority';
+import {TodoLabel} from './todo-label';
 
 export interface Todo {
   taskId: string;

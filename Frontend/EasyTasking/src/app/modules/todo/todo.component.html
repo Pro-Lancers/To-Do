@@ -6,19 +6,19 @@
         <div class="selection">
           <div class="fil-header">
             <div class="name">{{ filter }}</div>
-            <img src="assets\icons\pointer.png" />
+            <img src="assets\icons\pointer.png"/>
           </div>
           <div class="filter-options">
             <div (click)="filterSelect('All')" class="filter-ele">
-              <img src="assets/icons/all-icon.svg" />
+              <img src="assets/icons/all-icon.svg"/>
               <span>All</span>
             </div>
             <div (click)="filterSelect('InProgress')" class="filter-ele">
-              <img src="assets/icons/progress-icon.svg" />
+              <img src="assets/icons/progress-icon.svg"/>
               <span>InProgress</span>
             </div>
             <div (click)="filterSelect('completed')" class="filter-ele">
-              <img src="assets/icons/completed-icon.svg" />
+              <img src="assets/icons/completed-icon.svg"/>
               <span>completed</span>
             </div>
           </div>
@@ -27,27 +27,27 @@
         <div class="selection">
           <div class="fil-header">
             <div class="name">{{ Category }}</div>
-            <img src="assets\icons\pointer.png" />
+            <img src="assets\icons\pointer.png"/>
           </div>
           <div class="filter-options">
             <div (click)="categorySelect('Category')" class="filter-ele">
-              <img src="assets/icons/all-icon.svg" />
+              <img src="assets/icons/all-icon.svg"/>
               <span>All</span>
             </div>
             <div (click)="categorySelect('Work')" class="filter-ele">
-              <img src="assets/icons/Work-icon.svg" />
+              <img src="assets/icons/Work-icon.svg"/>
               <span>Work</span>
             </div>
             <div (click)="categorySelect('Personal')" class="filter-ele">
-              <img src="assets/icons/personal-icon.svg" />
+              <img src="assets/icons/personal-icon.svg"/>
               <span>Personal</span>
             </div>
             <div (click)="categorySelect('Shopping')" class="filter-ele">
-              <img src="assets/icons/Shopping-icon.svg" />
+              <img src="assets/icons/Shopping-icon.svg"/>
               <span>Shopping</span>
             </div>
             <div (click)="categorySelect('Others')" class="filter-ele">
-              <img src="assets/icons/other-icon.svg" />
+              <img src="assets/icons/other-icon.svg"/>
               <span>Others</span>
             </div>
           </div>
@@ -65,15 +65,15 @@
                 <span>New</span>
             </div> -->
       <div class="filter-ele">
-        <img src="assets/icons/all-icon.svg" />
+        <img src="assets/icons/all-icon.svg"/>
         <span>All</span>
       </div>
       <div class="filter-ele">
-        <img src="assets/icons/progress-icon.svg" />
+        <img src="assets/icons/progress-icon.svg"/>
         <span>InProgress</span>
       </div>
       <div class="filter-ele">
-        <img src="assets/icons/completed-icon.svg" />
+        <img src="assets/icons/completed-icon.svg"/>
         <span>completed</span>
       </div>
       <!-- <div class="filter-ele">
@@ -84,19 +84,19 @@
         Category
       </div>
       <div class="filter-ele">
-        <img src="assets/icons/Work-icon.svg" />
+        <img src="assets/icons/Work-icon.svg"/>
         <span>Work</span>
       </div>
       <div class="filter-ele">
-        <img src="assets/icons/personal-icon.svg" />
+        <img src="assets/icons/personal-icon.svg"/>
         <span>Personal</span>
       </div>
       <div class="filter-ele">
-        <img src="assets/icons/Shopping-icon.svg" />
+        <img src="assets/icons/Shopping-icon.svg"/>
         <span>Shopping</span>
       </div>
       <div class="filter-ele">
-        <img src="assets/icons/other-icon.svg" />
+        <img src="assets/icons/other-icon.svg"/>
         <span>Others</span>
       </div>
     </section>
@@ -132,7 +132,7 @@
               />
               <div class="card-content">
                 <small
-                  >Last date: {{ todo.dueDate | date: "dd/MM/yyyy" }}</small
+                >Last date: {{ todo.dueDate | date: "dd/MM/yyyy" }}</small
                 >
                 <h6>{{ todo.todoItem }}</h6>
               </div>
@@ -141,11 +141,11 @@
                 <span
                   class="menu"
                   style="height: 20px; line-height: 20px; width: 20px;"
-                  ><svg
-                    focusable="false"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                  >
+                ><svg
+                  focusable="false"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                >
                     <path
                       d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"
                     ></path>
@@ -207,10 +207,10 @@
                       class="alert alert-dismissible alert-danger"
                     >
                       <span *ngIf="newTaskFormObj.taskName.errors.required"
-                        >Name is required.</span
+                      >Name is required.</span
                       >
                       <span *ngIf="newTaskFormObj.taskName.errors.minlength"
-                        >Name should be 3 character.</span
+                      >Name should be 3 character.</span
                       >
                     </div>
                     <div class="input-wrapper">
@@ -230,7 +230,7 @@
                       class="alert alert-dismissible alert-danger"
                     >
                       <span *ngIf="newTaskFormObj.taskDeadline.errors.required"
-                        >Set a rough deadline.</span
+                      >Set a rough deadline.</span
                       >
                     </div>
                     <div class="input-wrapper">
@@ -240,7 +240,7 @@
                         <option
                           *ngFor="let pair of TODO_LABELS | keyvalue"
                           [value]="pair.value.toString()"
-                          >{{ pair.key.toString() }}</option
+                        >{{ pair.key.toString() }}</option
                         >
                         <!-- <option value="WORK">Work</option>
                                                 <option value="EDUCATION">Education</option>
@@ -257,7 +257,7 @@
                       class="alert alert-dismissible alert-danger"
                     >
                       <span *ngIf="newTaskFormObj.taskLabel.errors?.required"
-                        >Select a label.</span
+                      >Select a label.</span
                       >
                     </div>
                     <div class="input-wrapper">
@@ -267,7 +267,7 @@
                         <option
                           *ngFor="let pair of TODO_PRIORITIES | keyvalue"
                           [value]="pair.value.toString()"
-                          >{{ pair.key.toString() }}</option
+                        >{{ pair.key.toString() }}</option
                         >
                         <!-- <option value="URGENT">Urgent</option>
                                             <option value="HIGH">High</option>
@@ -283,7 +283,7 @@
                       class="alert alert-dismissible alert-danger"
                     >
                       <span *ngIf="newTaskFormObj.taskPriority.errors?.required"
-                        >Select a priority.</span
+                      >Select a priority.</span
                       >
                     </div>
                     <div class="form-footer">
@@ -325,10 +325,10 @@
               class="alert alert-dismissible alert-danger"
             >
               <span *ngIf="editTaskFormObj.taskName.errors.required"
-                >Name is required.</span
+              >Name is required.</span
               >
               <span *ngIf="editTaskFormObj.taskName.errors.minlength"
-                >Name should be 3 character.</span
+              >Name should be 3 character.</span
               >
             </div>
             <div class="input-wrapper">
@@ -349,7 +349,7 @@
               class="alert alert-dismissible alert-danger"
             >
               <span *ngIf="editTaskFormObj.taskDeadline.errors.required"
-                >Set a rough deadline.</span
+              >Set a rough deadline.</span
               >
             </div>
             <div class="input-wrapper">
@@ -359,7 +359,7 @@
                 <option
                   *ngFor="let pair of TODO_LABELS | keyvalue"
                   [value]="pair.value.toString()"
-                  >{{ pair.key.toString() }}</option
+                >{{ pair.key.toString() }}</option
                 >
                 <!-- <option [value]="'WORK'">Work</option>
                                 <option [value]="'PERSONAL'" selected>Personal</option>
@@ -376,7 +376,7 @@
               class="alert alert-dismissible alert-danger"
             >
               <span *ngIf="editTaskFormObj.taskLabel.errors?.required"
-                >Select a label.</span
+              >Select a label.</span
               >
             </div>
             <div class="input-wrapper">
@@ -386,7 +386,7 @@
                 <option
                   *ngFor="let pair of TODO_PRIORITIES | keyvalue"
                   [value]="pair.value.toString()"
-                  >{{ pair.key.toString() }}</option
+                >{{ pair.key.toString() }}</option
                 >
                 <!-- <option value="URGENT">Urgent</option>
                                 <option value="HIGH">High</option>
@@ -402,7 +402,7 @@
               class="alert alert-dismissible alert-danger"
             >
               <span *ngIf="editTaskFormObj.taskPriority.errors?.required"
-                >Set a Priority.</span
+              >Set a Priority.</span
               >
             </div>
             <div class="input-wrapper">
@@ -412,7 +412,7 @@
                 <option
                   *ngFor="let pair of TODO_STAGES | keyvalue"
                   [value]="pair.value.toString()"
-                  >{{ pair.key.toString() }}</option
+                >{{ pair.key.toString() }}</option
                 >
                 <!-- <option value="PENDING">Pending</option>
                                 <option value="IN_PROGRESS">Working on</option>
@@ -428,7 +428,7 @@
               class="alert alert-dismissible alert-danger"
             >
               <span *ngIf="editTaskFormObj.taskStage.errors?.required"
-                >Set a progress.</span
+              >Set a progress.</span
               >
             </div>
             <div class="form-footer">

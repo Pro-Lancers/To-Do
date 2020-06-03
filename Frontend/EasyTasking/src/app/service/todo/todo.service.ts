@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {environment} from '../../../environments/environment';
 
+import {Todo} from '../../utils/custom-types/todo/todo';
 
-import { Todo } from '../../utils/custom-types/todo/todo';
-import { environment } from '../../../environments/environment';
-import { AuthService } from '../auth.service';
+import {AuthService} from '../auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,8 @@ import { AuthService } from '../auth.service';
 export class TodoService {
   private readonly _baseApiUrl = environment.baseApiUrl + 'users/';
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private http: HttpClient, private authService: AuthService) {
+  }
 
   public fetchTodoList() {
     return this.http.get<Todo[]>(this._baseApiUrl + this.authService.CurrentUser.id + '/todos');
@@ -25,20 +26,20 @@ export class TodoService {
       dueDate: task.taskDeadline,
       label: task.taskLabel,
       priority: task.taskPriority,
-      stage: "PENDING"
-    }
+      stage: 'PENDING'
+    };
     return this.http.post<Todo>(this._baseApiUrl + this.authService.CurrentUser.id + '/todos', newTask);
   }
 
-  public editTask(task){
+  public editTask(task) {
     const updatedTask = {
       todoItem: task.taskName,
       dueDate: task.taskDeadline,
       label: task.taskLabel,
       priority: task.taskPriority,
       stage: task.taskStage
-    }
-    return this.http.put<Todo>(this._baseApiUrl + this.authService.CurrentUser.id + '/todos/'+task.taskId, updatedTask);
+    };
+    return this.http.put<Todo>(this._baseApiUrl + this.authService.CurrentUser.id + '/todos/' + task.taskId, updatedTask);
   }
 
   public deleteTask(taskId) {

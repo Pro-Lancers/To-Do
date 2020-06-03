@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { Subject, Observable } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {Subject, Observable} from 'rxjs';
 
 interface User {
   name?: string;
@@ -22,15 +22,15 @@ export class ServerService {
   }
 
   errorMessage(message: string) {
-    this.Alert.next({ message, type: 'error' });
+    this.Alert.next({message, type: 'error'});
   }
 
   successMessage(message) {
-    this.Alert.next({ message, type: 'success' });
+    this.Alert.next({message, type: 'success'});
   }
 
   warnMessage(message) {
-    this.Alert.next({ message, type: 'warn' });
+    this.Alert.next({message, type: 'warn'});
   }
 
   getAlert(): Observable<any> {

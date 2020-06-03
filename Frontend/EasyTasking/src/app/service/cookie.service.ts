@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +7,8 @@ export class CookieService {
 
   isConsented = false;
 
-  constructor() { }
+  constructor() {
+  }
 
   /**
    * delete cookie

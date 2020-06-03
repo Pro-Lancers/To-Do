@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { CustomValidators } from '../../utils/custom-validators';
-import { TodoService } from "../../service/todo/todo.service";
-import { AuthService } from "../../service/auth.service";
-import { ServerService } from 'src/app/service/server.service';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {CustomValidators} from '../../utils/custom-validators';
+import {TodoService} from '../../service/todo/todo.service';
+import {AuthService} from '../../service/auth.service';
+import {ServerService} from 'src/app/service/server.service';
 
-import { TodoLabel } from 'src/app/utils/custom-types/todo/todo-label';
-import { TodoPriority } from 'src/app/utils/custom-types/todo/todo-priority';
-import { TodoStage } from 'src/app/utils/custom-types/todo/todo-stage';
+import {TodoLabel} from 'src/app/utils/custom-types/todo/todo-label';
+import {TodoPriority} from 'src/app/utils/custom-types/todo/todo-priority';
+import {TodoStage} from 'src/app/utils/custom-types/todo/todo-stage';
 
 @Component({
   selector: 'app-todo',
@@ -16,9 +16,9 @@ import { TodoStage } from 'src/app/utils/custom-types/todo/todo-stage';
 })
 export class TodoComponent implements OnInit {
 
-   TODO_LABELS = TodoLabel;
-   TODO_PRIORITIES = TodoPriority;
-   TODO_STAGES = TodoStage;
+  TODO_LABELS = TodoLabel;
+  TODO_PRIORITIES = TodoPriority;
+  TODO_STAGES = TodoStage;
 
 
   title = 'All';
@@ -76,28 +76,29 @@ export class TodoComponent implements OnInit {
     this.todoService.fetchTodoList().subscribe((response: any) => {
       if (response.success) {
         for (let i = 0; i < response.data.length; i++) {
-          this.todoList.push(response.data[i])
+          this.todoList.push(response.data[i]);
         }
       }
-    })
+    });
   }
 
   get newTaskFormObj() {
     return this.newTaskFormGroup.controls;
   }
+
   get editTaskFormObj() {
     return this.editTaskFormGroup.controls;
   }
 
   resetForm() {
-    this.isNewTask = false
-    this.isAddingTask = false
+    this.isNewTask = false;
+    this.isAddingTask = false;
 
-    this.isEdit = false
-    this.isUpdatingTask = false
+    this.isEdit = false;
+    this.isUpdatingTask = false;
 
-    this.newTaskFormGroup.reset()
-    this.editTaskFormGroup.reset()
+    this.newTaskFormGroup.reset();
+    this.editTaskFormGroup.reset();
   }
 
   menu(data, i, filter): void {
@@ -116,13 +117,15 @@ export class TodoComponent implements OnInit {
       // set stage to COMPLETE
     }
     if (filter === 'delete') {
-      this.deleteTask(data.id)
+      this.deleteTask(data.id);
     }
   }
+
   filterSelect(filter) {
     this.filter = filter;
     // Perform filter
   }
+
   categorySelect(category) {
     this.Category = category;
     // Arrange category
@@ -136,48 +139,53 @@ export class TodoComponent implements OnInit {
   addNewTask() {
     this.isAddingTask = true;
     if (this.newTaskFormGroup.valid) {
-      this.todoService.addTask({ ...this.newTaskFormGroup.value }).subscribe((response: any) => {
+      this.todoService.addTask({...this.newTaskFormGroup.value}).subscribe((response: any) => {
         if (response.success) {
           this.updateTodoArr(response.data);
-          this.utils.successMessage("Task added to list !")
+          this.utils.successMessage('Task added to list !');
           this.resetForm();
         } else {
-          this.utils.errorMessage("Failed to add task !")
+          this.utils.errorMessage('Failed to add task !');
         }
       }, (error) => {
-        this.utils.errorMessage("Error occurred while adding task !")
-      })
+        this.utils.errorMessage('Error occurred while adding task !');
+      });
     }
   }
+
   editTask() {
-    this.isUpdatingTask = true
+    this.isUpdatingTask = true;
     if (this.editTaskFormGroup.valid) {
-      let updatedTask = {
+      const updatedTask = {
         ...this.editTaskFormGroup.value,
         taskId: this.currentEditingTask.id.toString(),
-      }
+      };
       this.todoService.editTask(updatedTask).subscribe((response: any) => {
         if (response.success) {
-          this.utils.successMessage("Task updated !")
-          this.todoList[this.currentEditingTask.originalIndex] = response.data
+          this.utils.successMessage('Task updated !');
+          this.todoList[this.currentEditingTask.originalIndex] = response.data;
           this.resetForm();
         } else {
-          this.utils.errorMessage("Failed to update task !")
+          this.utils.errorMessage('Failed to update task !');
         }
       }, (error) => {
-        this.utils.errorMessage("Error occurred while updating task !")
-      })
+        this.utils.errorMessage('Error occurred while updating task !');
+      });
     }
   }
+
   deleteTask(taskId) {
     this.todoService.deleteTask(taskId).subscribe((response: any) => {
       if (response.success) {
-        let index = this.todoList.findIndex(e => e.id.toString() == taskId.toString());
+        const index = this.todoList.findIndex(e => e.id.toString() == taskId.toString());
+        if (index > -1) {
+          this.todoList.splice(index, 1);
+        }
       } else {
-        this.utils.errorMessage("Failed to delete task !")
+        this.utils.errorMessage('Failed to delete task !');
       }
     }, (error) => {
-      this.utils.errorMessage("Error occurred while deleting task !")
-    })
+      this.utils.errorMessage('Error occurred while deleting task !');
+    });
   }
 }
