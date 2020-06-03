@@ -132,8 +132,16 @@ export class TodoComponent implements OnInit {
   }
 
 
-  updateTodoArr(task) {
-    this.todoList.push(task);
+  updateTodoArray(operation,obj) {
+    if(operation === 'push'){
+      this.todoList.push(obj);
+    }else if(operation === 'delete'){
+      if(obj.index>-1){
+        this.todoList.splice(obj.index,1);
+      }
+    }else if(operation === 'replace'){
+      this.todoList[obj.index] = obj.data;
+    }
   }
 
   addNewTask() {
@@ -141,7 +149,7 @@ export class TodoComponent implements OnInit {
     if (this.newTaskFormGroup.valid) {
       this.todoService.addTask({...this.newTaskFormGroup.value}).subscribe((response: any) => {
         if (response.success) {
-          this.updateTodoArr(response.data);
+          this.updateTodoArray('push',{...response.data});
           this.utils.successMessage('Task added to list !');
           this.resetForm();
         } else {
@@ -163,7 +171,7 @@ export class TodoComponent implements OnInit {
       this.todoService.editTask(updatedTask).subscribe((response: any) => {
         if (response.success) {
           this.utils.successMessage('Task updated !');
-          this.todoList[this.currentEditingTask.originalIndex] = response.data;
+          this.updateTodoArray('replace',{index:this.currentEditingTask.originalIndex,data:response.data});
           this.resetForm();
         } else {
           this.utils.errorMessage('Failed to update task !');
@@ -178,9 +186,7 @@ export class TodoComponent implements OnInit {
     this.todoService.deleteTask(taskId).subscribe((response: any) => {
       if (response.success) {
         const index = this.todoList.findIndex(e => e.id.toString() == taskId.toString());
-        if (index > -1) {
-          this.todoList.splice(index, 1);
-        }
+        this.updateTodoArray('delete',{index: index});
       } else {
         this.utils.errorMessage('Failed to delete task !');
       }
