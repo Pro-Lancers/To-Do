@@ -146,23 +146,23 @@
 
                                 <div class="closer" (click)="resetAddTaskForm()">x</div>
                                 <div class="inputs-wrapper">
-                                    <form [formGroup]="newTaskForm" (ngSubmit)="addNewTask()">
+                                    <form [formGroup]="newTaskFormGroup" (ngSubmit)="addNewTask()">
                                         <div class="input-wrapper">
                                             <span> Task : </span>
                                             <input type="text" placeholder="Task Name" class="form-input" formControlName="taskName" />
                                         </div>
-                                      <div *ngIf="(addTaskForm.taskName.touched || isAddingTask) && addTaskForm.taskName.invalid"
+                                      <div *ngIf="(newTaskFormObj.taskName.touched || isAddingTask) && newTaskFormObj.taskName.invalid"
                                            class="alert alert-dismissible alert-danger">
-                                        <span *ngIf="addTaskForm.taskName.errors.required">Name is required.</span>
-                                        <span *ngIf="addTaskForm.taskName.errors.minlength">Name should be 3 character.</span>
+                                        <span *ngIf="newTaskFormObj.taskName.errors.required">Name is required.</span>
+                                        <span *ngIf="newTaskFormObj.taskName.errors.minlength">Name should be 3 character.</span>
                                       </div>
                                         <div class="input-wrapper">
                                             <span> Last date : </span>
                                             <input type="date" placeholder="Date" class="form-input" formControlName="taskDeadline"/>
                                         </div>
-                                      <div *ngIf="(addTaskForm.taskDeadline.touched || isAddingTask) && addTaskForm.taskDeadline.invalid"
+                                      <div *ngIf="(newTaskFormObj.taskDeadline.touched || isAddingTask) && newTaskFormObj.taskDeadline.invalid"
                                            class="alert alert-dismissible alert-danger">
-                                        <span *ngIf="addTaskForm.taskDeadline.errors.required">Set a rough deadline.</span>
+                                        <span *ngIf="newTaskFormObj.taskDeadline.errors.required">Set a rough deadline.</span>
                                       </div>
                                         <div class="input-wrapper">
                                             <span> Label : </span>
@@ -175,9 +175,9 @@
                                                 <option value="OTHERS">Others</option>
                                             </select>
                                         </div>
-                                      <div *ngIf="(addTaskForm.taskLabel.touched || isAddingTask) && addTaskForm.taskLabel.invalid"
+                                      <div *ngIf="(newTaskFormObj.taskLabel.touched || isAddingTask) && newTaskFormObj.taskLabel.invalid"
                                            class="alert alert-dismissible alert-danger">
-                                        <span *ngIf="addTaskForm.taskLabel.errors?.required">Select a label.</span>
+                                        <span *ngIf="newTaskFormObj.taskLabel.errors?.required">Select a label.</span>
                                       </div>
                                       <div class="input-wrapper">
                                         <span> Priority : </span>
@@ -190,9 +190,9 @@
                                         
                                         </select>
                                     </div>
-                                        <div *ngIf="(addTaskForm.taskPriority.touched || isAddingTask) && addTaskForm.taskPriority.invalid"
+                                        <div *ngIf="(newTaskFormObj.taskPriority.touched || isAddingTask) && newTaskFormObj.taskPriority.invalid"
                                             class="alert alert-dismissible alert-danger">
-                                            <span *ngIf="addTaskForm.taskPriority.errors?.required">Select a priority.</span>
+                                            <span *ngIf="newTaskFormObj.taskPriority.errors?.required">Select a priority.</span>
                                         </div>
                                         <div class="form-footer">
                                             <button type="submit" >Save</button>
@@ -214,43 +214,78 @@
     <div class="card-container add-card">
         <div class="new-form">
             <div class="closer" (click)="isEdit = false">x</div>
-            <div class="inputs-wrapper">
-                <div>
-                    <div class="input-wrapper">
-                        <span> Task : </span>
-                        <input type="text" placeholder="Task Name" [(ngModel)]="editData.task" class="form-input" />
-                    </div>
-                    <div class="input-wrapper">
-                        <span> Last date : </span>
-                        <input type="date" placeholder="Date" [(ngModel)]="editData.dueDate" class="form-input" />
-                    </div>
-                    <div class="input-wrapper">
-                        <span> Label : </span>
-                        <select name="label" [(ngModel)]="editData.label">
-                            <option value="" selected>Choose a label</option>
-                            <option [value]="'WORK'">Work</option>
-                            <option [value]="'PERSONAL'" selected>Personal</option>
-                            <option [value]="'EDUCATION'">Education</option>
-                            <option [value]="'SHOPPING'">Shopping</option>
-                            <option [value]="'OTHERS'">Others</option>
-                        </select>
-                    </div>
-                    <div class="input-wrapper">
-                        <span> Priority : </span>
-                        <select name="label" >
-                          <option value="" selected>Choose task priority</option>
-                            <option value="URGENT">Urgent</option>
-                            <option value="HIGH">High</option>
-                            <option value="MEDIUM">Medium</option>
-                            <option value="LOW">Low</option>
-                        
-                        </select>
-                    </div>
-                    <div class="form-footer">
-                        <button (click)="editTask()">save</button>
+            <form [formGroup]="editTaskFormGroup" (ngSubmit)="editTask()">
+                <div class="inputs-wrapper">
+                    <div>
+                        <div class="input-wrapper">
+                            <span> Task : </span>
+                            <input type="text" placeholder="Task Name"  class="form-input" formControlName="taskName"/>
+                        </div>
+                        <div *ngIf="(editTaskFormObj.taskName.touched || isUpdatingTask) && editTaskFormObj.taskName.invalid"
+                                           class="alert alert-dismissible alert-danger">
+                                        <span *ngIf="editTaskFormObj.taskName.errors.required">Name is required.</span>
+                                        <span *ngIf="editTaskFormObj.taskName.errors.minlength">Name should be 3 character.</span>
+                                      </div>
+                        <div class="input-wrapper">
+                            <span> Last date : </span>
+                            <input type="date" placeholder="Date" [(ngModel)]="currentEditingTask.dueDate" class="form-input" formControlName="taskDeadline" />
+                        </div>
+                        <div *ngIf="(editTaskFormObj.taskDeadline.touched || isUpdatingTask) && editTaskFormObj.taskDeadline.invalid"
+                                           class="alert alert-dismissible alert-danger">
+                                        <span *ngIf="editTaskFormObj.taskDeadline.errors.required">Set a rough deadline.</span>
+                                    
+                                      </div>
+                        <div class="input-wrapper">
+                            <span> Label : </span>
+                            <select name="label"  formControlName="taskLabel">
+                                <option value="" selected>Choose a label</option>
+                                <option [value]="'WORK'">Work</option>
+                                <option [value]="'PERSONAL'" selected>Personal</option>
+                                <option [value]="'EDUCATION'">Education</option>
+                                <option [value]="'SHOPPING'">Shopping</option>
+                                <option [value]="'OTHERS'">Others</option>
+                            </select>
+                        </div>
+                        <div *ngIf="(editTaskFormObj.taskLabel.touched || isUpdatingTask) && editTaskFormObj.taskLabel.invalid"
+                                           class="alert alert-dismissible alert-danger">
+                                        <span *ngIf="editTaskFormObj.taskLabel.errors?.required">Select a label.</span>
+                                      </div>
+                        <div class="input-wrapper">
+                            <span> Priority : </span>
+                            <select name="label" formControlName="taskPriority" >
+                            <option value="" selected>Choose task priority</option>
+                                <option value="URGENT">Urgent</option>
+                                <option value="HIGH">High</option>
+                                <option value="MEDIUM">Medium</option>
+                                <option value="LOW">Low</option>
+                            
+                            </select>
+                        </div>
+                        <div *ngIf="(editTaskFormObj.taskPriority.touched || isUpdatingTask) && editTaskFormObj.taskPriority.invalid"
+                                           class="alert alert-dismissible alert-danger">
+                                        <span *ngIf="editTaskFormObj.taskPriority.errors?.required">Set a Priority.</span>
+                                      </div>
+                        <div class="input-wrapper">
+                            <span> Status : </span>
+                            <select name="label" formControlName="taskStage">
+                            <option value="" selected>Choose progress</option>
+                            <option value="PENDING">Pending</option>
+                                <option value="IN_PROGRESS">Working on</option>
+                                <option value="COMPLETED">Completed</option>
+                                <option value="ARCHIVE">Archive</option>
+                               
+                            </select>
+                        </div>
+                        <div *ngIf="(editTaskFormObj.taskStage.touched || isUpdatingTask) && editTaskFormObj.taskStage.invalid"
+                                           class="alert alert-dismissible alert-danger">
+                                        <span *ngIf="editTaskFormObj.taskStage.errors?.required">Set a progress.</span>
+                        </div>
+                        <div class="form-footer">
+                            <button type="submit">Save</button>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>

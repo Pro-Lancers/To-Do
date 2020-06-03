@@ -6,7 +6,7 @@ const TODO_STAGES = [
   TODO_PENDING_STAGE,
   "IN_PROGRESS",
   "COMPLETED",
-  "CANCELLED",
+  "ARCHIVE",
 ];
 
 module.exports = {
