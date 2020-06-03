@@ -5,6 +5,10 @@ import { TodoService } from "../../service/todo/todo.service";
 import { AuthService } from "../../service/auth.service";
 import { ServerService } from 'src/app/service/server.service';
 
+import { TodoLabel } from 'src/app/utils/custom-types/todo/todo-label';
+import { TodoPriority } from 'src/app/utils/custom-types/todo/todo-priority';
+import { TodoStage } from 'src/app/utils/custom-types/todo/todo-stage';
+
 @Component({
   selector: 'app-todo',
   templateUrl: './todo.component.html',
@@ -12,8 +16,14 @@ import { ServerService } from 'src/app/service/server.service';
 })
 export class TodoComponent implements OnInit {
 
+   TODO_LABELS = TodoLabel;
+   TODO_PRIORITIES = TodoPriority;
+   TODO_STAGES = TodoStage;
+
+
   title = 'All';
   isAddingTask = false;
+
   // todoList = [
   //   {
   //   taskId: '78asd6as4d66',
@@ -43,11 +53,8 @@ export class TodoComponent implements OnInit {
   filter = 'All';
   Category = 'Category';
 
-  // Sample data delete once API are Implemented
-
   constructor(private todoService: TodoService, private authService: AuthService, private utils: ServerService) {
 
-    // this.authService.initSession();
   }
 
   newTaskFormGroup = new FormGroup({
@@ -112,21 +119,15 @@ export class TodoComponent implements OnInit {
       this.deleteTask(data.id)
     }
   }
-
-
-
   filterSelect(filter) {
     this.filter = filter;
-
     // Perform filter
   }
-
-
   categorySelect(category) {
     this.Category = category;
-
     // Arrange category
   }
+
 
   updateTodoArr(task) {
     this.todoList.push(task);
@@ -179,7 +180,4 @@ export class TodoComponent implements OnInit {
       this.utils.errorMessage("Error occurred while deleting task !")
     })
   }
-
-
-
 }

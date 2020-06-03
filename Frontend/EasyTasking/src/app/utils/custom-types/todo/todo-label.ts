@@ -1,6 +1,7 @@
 export enum TodoLabel {
-  WORK = 'WORK',
-  EDUCATION = 'EDUCATION',
-  HOME = 'HOME',
-  HOBBY = 'HOBBY'
+  Work = 'WORK',
+  Education = 'EDUCATION',
+  Personal = 'PERSONAL',
+  Shopping = 'SHOPPING',
+  Others = 'OTHERS'
 }

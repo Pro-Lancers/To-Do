@@ -1,6 +1,6 @@
 export enum TodoStage {
-  PENDING = 'PENDING',
-  IN_PROGRESS = 'IN_PROGRESS',
-  COMPLETED = 'COMPLETED',
-  CANCELLED = 'CANCELLED'
+  Pending = 'PENDING',
+  Working = 'IN_PROGRESS',
+  Completed = 'COMPLETED',
+  Cancelled = 'CANCELLED'
 }
