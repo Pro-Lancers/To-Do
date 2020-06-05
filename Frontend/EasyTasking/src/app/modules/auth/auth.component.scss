@@ -161,10 +161,9 @@
         background: var(--light-gray-alt);
 
         &::before {
-          content: "\f00c";
+          content: "✔";
           font-weight: 900;
           font-size: 0.9em;
-          font-family: "Font Awesome 5 Free";
         }
       }
 
