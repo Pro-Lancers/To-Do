@@ -1,17 +1,18 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {environment} from '../../../environments/environment';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
-import {Todo} from '../../utils/custom-types/todo/todo';
+import { Todo } from '../../utils/custom-types/todo/todo';
 
-import {AuthService} from '../auth.service';
+import { AuthService } from '../auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class TodoService {
-  private readonly _baseApiUrl = environment.baseApiUrl + 'users/';
+  private readonly baseApiUrl = environment.baseUrl + '/api/v1/';
+  private readonly _baseApiUrl = this.baseApiUrl + 'users/';
 
   constructor(private http: HttpClient, private authService: AuthService) {
   }
