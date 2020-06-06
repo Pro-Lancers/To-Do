@@ -50,6 +50,7 @@ export class AuthService {
 
   public initUserInfo(obj) {
     this.CurrentUser = obj;
+    localStorage.setItem('currentUser', JSON.stringify(obj))
   }
 
   public initSession() {
