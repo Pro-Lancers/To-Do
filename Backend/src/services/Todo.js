@@ -19,8 +19,10 @@ const createTodoForUser = async (userId, todoData) => {
   return todoItem;
 };
 
-const updateTodoForUser = (todoId, todoData) =>
-  models.todo.update(todoData, { where: { id: todoId } });
+const updateTodoForUser = async (todoId, todoData) => {
+  await models.todo.update(todoData, { where: { id: todoId } });
+  return models.todo.findOne({ where: { id: todoId } });
+};
 
 const deleteTodoForUser = (todoId) =>
   models.todo.destroy({ where: { id: todoId } });

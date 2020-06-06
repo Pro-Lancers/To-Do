@@ -15,6 +15,7 @@ class UserController {
       Response.fail(res, error.message, httpStatusCodes.BAD_GATEWAY);
     }
   }
+
   static async loginUser(req, res) {
     try {
       Logger.log("info", "Logging in User");

@@ -26,8 +26,9 @@ const loginUser = async (userData) => {
   }
   return false;
 };
+
 const getUserInfo = async (criteria) =>
-  await models.user.findOne({
+  models.user.findOne({
     attributes: ["id", "name", "email", "phone"],
     where: { ...criteria },
   });
