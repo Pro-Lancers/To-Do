@@ -1,13 +1,15 @@
-import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {CustomValidators} from '../../utils/custom-validators';
-import {TodoService} from '../../service/todo/todo.service';
-import {AuthService} from '../../service/auth.service';
-import {ServerService} from 'src/app/service/server.service';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { CustomValidators } from '../../utils/custom-validators';
+import { TodoService } from '../../service/todo/todo.service';
+import { AuthService } from '../../service/auth.service';
+import { ServerService } from 'src/app/service/server.service';
 
-import {TodoLabel} from 'src/app/utils/custom-types/todo/todo-label';
-import {TodoPriority} from 'src/app/utils/custom-types/todo/todo-priority';
-import {TodoStage} from 'src/app/utils/custom-types/todo/todo-stage';
+import { TodoLabel } from 'src/app/utils/custom-types/todo/todo-label';
+import { TodoPriority } from 'src/app/utils/custom-types/todo/todo-priority';
+import { TodoStage } from 'src/app/utils/custom-types/todo/todo-stage';
+import { CookieService } from '../../service/cookie.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-todo',
@@ -24,25 +26,8 @@ export class TodoComponent implements OnInit {
   title = 'All';
   isAddingTask = false;
 
-  // todoList = [
-  //   {
-  //   taskId: '78asd6as4d66',
-  //   task: 'Create Dash board',
-  //   stage: 'PENDING',
-  //   label: 'WORK',
-  //   dueDate: Date.now(),
-  //   createdAt: Date.now(),
-  //   updatedAt: Date.now()
-  // }, {
-  //   taskId: '78asd6as4d66',
-  //   task: 'Create board',
-  //   stage: 'PENDING',
-  //   label: 'Personal',
-  //   dueDate: Date.now(),
-  //   createdAt: Date.now(),
-  //   updatedAt: Date.now()
-  // }];
   todoList = [];
+  viewTodo = [];
   isNewTask = false;
   isEdit = false;
   isUpdatingTask = false;
@@ -53,7 +38,9 @@ export class TodoComponent implements OnInit {
   filter = 'All';
   Category = 'Category';
 
-  constructor(private todoService: TodoService, private authService: AuthService, private utils: ServerService) {
+  constructor(private todoService: TodoService, private authService: AuthService,
+    private router: Router,
+    private utils: ServerService, private cookieService: CookieService) {
 
   }
 
@@ -73,13 +60,21 @@ export class TodoComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    this.todoService.fetchTodoList().subscribe((response: any) => {
-      if (response.success) {
-        for (let i = 0; i < response.data.length; i++) {
-          this.todoList.push(response.data[i]);
+    if (this.authService.isAuthenticated()) {
+      this.utils.isLoading = true
+      this.todoService.fetchTodoList().subscribe((response: any) => {
+        if (response.success) {
+          for (let i = 0; i < response.data.length; i++) {
+            this.todoList.push(response.data[i]);
+          }
+          this.viewTodo = [...this.todoList];
+          this.utils.isLoading = false
         }
-      }
-    });
+      });
+    } else {
+      this.router.navigate(['/authenticate/login'])
+    }
+
   }
 
   get newTaskFormObj() {
@@ -110,12 +105,7 @@ export class TodoComponent implements OnInit {
 
       this.isEdit = true;
     }
-    if (filter === 'inProgress') {
-      // set stage to InProgress
-    }
-    if (filter === 'complete') {
-      // set stage to COMPLETE
-    }
+
     if (filter === 'delete') {
       this.deleteTask(data.id);
     }
@@ -123,45 +113,61 @@ export class TodoComponent implements OnInit {
 
   filterSelect(filter) {
     this.filter = filter;
+    if (filter === 'All') this.viewTodo = this.todoList;
+    else this.viewTodo = this.todoList.filter(e => e.stage === filter.toUpperCase());
     // Perform filter
   }
 
   categorySelect(category) {
     this.Category = category;
+    console.log((category))
+    this.viewTodo = this.todoList.filter(e => e.label === category);
     // Arrange category
   }
 
 
-  updateTodoArray(operation,obj) {
-    if(operation === 'push'){
+  updateTodoArray(operation, obj) {
+    if (operation === 'push') {
       this.todoList.push(obj);
-    }else if(operation === 'delete'){
-      if(obj.index>-1){
-        this.todoList.splice(obj.index,1);
+    } else if (operation === 'delete') {
+      if (obj.index > -1) {
+        this.todoList.splice(obj.index, 1);
       }
-    }else if(operation === 'replace'){
+    } else if (operation === 'replace') {
       this.todoList[obj.index] = obj.data;
     }
+    this.viewTodo = [...this.todoList];
+  }
+
+  resetEditForm() {
+    this.currentEditingTask = {}
+    this.isEdit = true
   }
 
   addNewTask() {
     this.isAddingTask = true;
     if (this.newTaskFormGroup.valid) {
-      this.todoService.addTask({...this.newTaskFormGroup.value}).subscribe((response: any) => {
+      this.utils.isLoading = true;
+      this.todoService.addTask({ ...this.newTaskFormGroup.value }).subscribe((response: any) => {
         if (response.success) {
-          this.updateTodoArray('push',{...response.data});
+          console.log('response :', response)
+          this.updateTodoArray('push', { ...response.data });
+          this.utils.isLoading = false;
           this.utils.successMessage('Task added to list !');
           this.resetForm();
         } else {
           this.utils.errorMessage('Failed to add task !');
+          this.utils.isLoading = false;
         }
       }, (error) => {
         this.utils.errorMessage('Error occurred while adding task !');
+        this.utils.isLoading = false;
       });
     }
   }
 
   editTask() {
+    this.utils.isLoading = true;
     this.isUpdatingTask = true;
     if (this.editTaskFormGroup.valid) {
       const updatedTask = {
@@ -170,28 +176,35 @@ export class TodoComponent implements OnInit {
       };
       this.todoService.editTask(updatedTask).subscribe((response: any) => {
         if (response.success) {
+          this.utils.isLoading = false;
           this.utils.successMessage('Task updated !');
-          this.updateTodoArray('replace',{index:this.currentEditingTask.originalIndex,data:response.data});
+          console.log("edit : ", response)
+          this.updateTodoArray('replace', { index: this.currentEditingTask.originalIndex, data: response.data });
           this.resetForm();
         } else {
           this.utils.errorMessage('Failed to update task !');
         }
       }, (error) => {
+        this.utils.isLoading = false;
         this.utils.errorMessage('Error occurred while updating task !');
       });
     }
   }
 
   deleteTask(taskId) {
+    this.utils.isLoading = true;
     this.todoService.deleteTask(taskId).subscribe((response: any) => {
       if (response.success) {
         const index = this.todoList.findIndex(e => e.id.toString() == taskId.toString());
-        this.updateTodoArray('delete',{index: index});
+        this.updateTodoArray('delete', { index: index });
+        this.utils.isLoading = false;
       } else {
         this.utils.errorMessage('Failed to delete task !');
+        this.utils.isLoading = false;
       }
     }, (error) => {
       this.utils.errorMessage('Error occurred while deleting task !');
+      this.utils.isLoading = false;
     });
   }
 }

@@ -8,6 +8,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';   //
 import { HttpRequestInterceptor } from './service/interceptors/http-request-interceptor';
 import { AuthGuardService } from './service/auth-guard.service';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
+import {AuthService} from "./service/auth.service";
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
       { provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true },
       { provide: JWT_OPTIONS, useValue: JWT_OPTIONS }],
     JwtHelperService,
-    AuthGuardService
+    AuthGuardService,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })

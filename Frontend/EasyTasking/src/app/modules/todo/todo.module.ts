@@ -5,6 +5,7 @@ import { TodoRoutingModule } from './todo-routing.module';
 import { TodoComponent } from './todo.component';
 import { SharedModule } from '../shared/shared.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {AuthService} from "../../service/auth.service";
 
 
 @NgModule({
@@ -15,6 +16,9 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     SharedModule,
     ReactiveFormsModule,
     FormsModule
+  ],
+  providers:[
+
   ]
 })
 export class TodoModule { }
