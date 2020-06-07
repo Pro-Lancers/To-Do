@@ -13,13 +13,17 @@
               <img src="assets/icons/all-icon.svg" />
               <span>All</span>
             </div>
-            <div (click)="filterSelect('In-Progress')" class="filter-ele">
+            <div (click)="filterSelect('IN_PROGRESS')" class="filter-ele">
               <img src="assets/icons/progress-icon.svg" />
               <span>InProgress</span>
             </div>
-            <div (click)="filterSelect('Completed')" class="filter-ele">
+            <div (click)="filterSelect('COMPLETED')" class="filter-ele">
               <img src="assets/icons/completed-icon.svg" />
-              <span>completed</span>
+              <span>Completed</span>
+            </div>
+            <div (click)="filterSelect('CANCELLED')" class="filter-ele">
+              <img src="assets/icons/bin-icon.svg">
+              <span>Trash</span>
             </div>
           </div>
         </div>
@@ -56,7 +60,7 @@
     </section>
 
     <section class="col-lg-3 pc-only filters">
-      <div (click)="isNewTask = true" class="filter-ele fill-btn">
+      <div (click)="isNewTask = !isNewTask" class="filter-ele fill-btn">
         <span class="img">+</span>
         <span>Add Task</span>
       </div>
@@ -68,18 +72,18 @@
         <img src="assets/icons/all-icon.svg" />
         <span>All</span>
       </div>
-      <div (click)="filterSelect('In-Progress')" class="filter-ele">
+      <div (click)="filterSelect('IN_PROGRESS')" class="filter-ele">
         <img src="assets/icons/progress-icon.svg" />
         <span>InProgress</span>
       </div>
-      <div (click)="filterSelect('Completed')" class="filter-ele">
+      <div (click)="filterSelect('COMPLETED')" class="filter-ele">
         <img src="assets/icons/completed-icon.svg" />
-        <span>completed</span>
+        <span>Completed</span>
       </div>
-      <!-- <div class="filter-ele">
-                <img src="assets/icons/bin-icon.svg">
-                <span>Bin</span>
-            </div> -->
+      <div (click)="filterSelect('CANCELLED')" class="filter-ele">
+        <img src="assets/icons/bin-icon.svg">
+        <span>Trash</span>
+      </div>
       <div class="filter-ele filter-name">
         Category
       </div>
@@ -135,7 +139,7 @@
                     <!--                      (click)="menu(todo, i, 'inProgress')"-->
                     <!--                      class="option-ele"-->
                     <!--                    >-->
-                    <!--                      In-Progress-->
+                    <!--                      IN_PROGRESS-->
                     <!--                    </div>-->
                     <!--                    <div (click)="menu(todo, i, 'complete')" class="option-ele">-->
                     <!--                      Completed-->
@@ -303,10 +307,6 @@
                 <option value="" selected>Choose progress</option>
                 <option *ngFor="let pair of TODO_STAGES | keyvalue" [value]="pair.value.toString()">
                   {{ pair.key.toString() }}</option>
-                <!-- <option value="PENDING">Pending</option>
-                                <option value="IN_PROGRESS">Working on</option>
-                                <option value="COMPLETED">Completed</option>
-                                <option value="CANCELLED">Cancelled</option> -->
               </select>
             </div>
             <div *ngIf="

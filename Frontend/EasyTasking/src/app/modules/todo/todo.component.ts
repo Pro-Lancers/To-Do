@@ -114,7 +114,7 @@ export class TodoComponent implements OnInit {
   filterSelect(filter) {
     this.filter = filter;
     if (filter === 'All') this.viewTodo = this.todoList;
-    else this.viewTodo = this.todoList.filter(e => e.stage === filter.toUpperCase());
+    else this.viewTodo = this.todoList.filter(e => e.stage === filter);
     // Perform filter
   }
 

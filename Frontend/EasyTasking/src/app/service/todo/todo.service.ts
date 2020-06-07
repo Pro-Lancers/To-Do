@@ -30,7 +30,7 @@ export class TodoService {
       priority: task.taskPriority,
       stage: 'PENDING'
     };
-    return this.http.post<Todo>(this._baseApiUrl + this.authService.CurrentUser.id + '/todos', newTask);
+    return this.http.post<Todo>(this._baseApiUrl + this.authService.getUserInfo().id + '/todos', newTask);
   }
 
   public editTask(task) {
@@ -41,11 +41,11 @@ export class TodoService {
       priority: task.taskPriority,
       stage: task.taskStage
     };
-    return this.http.put<Todo>(this._baseApiUrl + this.authService.CurrentUser.id + '/todos/' + task.taskId, updatedTask);
+    return this.http.put<Todo>(this._baseApiUrl + this.authService.getUserInfo().id + '/todos/' + task.taskId, updatedTask);
   }
 
   public deleteTask(taskId) {
-    return this.http.delete<Todo>(this._baseApiUrl + this.authService.CurrentUser.id + '/todos/' + taskId);
+    return this.http.delete<Todo>(this._baseApiUrl + this.authService.getUserInfo().id + '/todos/' + taskId);
   }
 
 }
