@@ -1,0 +1,9 @@
+<div *ngIf="alertObject.length != 0" class="alertWrapper">
+    <div class="alert_container">
+        <div *ngFor="let data of alertObject; let i=index">
+            <div class="alertBox" [ngClass]="data.type">
+                <h5 class="alertMessage">{{ data.message }}</h5>
+            </div>
+        </div>
+    </div>
+</div>
