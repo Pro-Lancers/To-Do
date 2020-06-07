@@ -73,7 +73,8 @@
                     <span *ngIf="registerForm.name.errors.minlength">Name should be 3 character.</span>
                   </div>
                   <div class="input-wrapper">
-                    <input type="text" placeholder="Phone(optional)" class="form-input form-control"
+                    <input type="text" maxlength="10" minlength="10" placeholder="Phone(optional)"
+                      class="form-input form-control"
                       [class.is-invalid]="registerForm.name.invalid && registerForm.name.touched"
                       formControlName="phone" />
                     <span class="focus-border"></span>
