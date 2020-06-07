@@ -1,4 +1,4 @@
-const { TODO_PENDING_STAGE } = require("../utils/constants");
+const { IN_PROGRESS_STAGE } = require("../utils/constants");
 
 module.exports = {
   up: (queryInterface, DataTypes) => {
@@ -18,7 +18,7 @@ module.exports = {
       stage: {
         type: DataTypes.STRING,
         allowNull: false,
-        defaultValue: TODO_PENDING_STAGE,
+        defaultValue: IN_PROGRESS_STAGE,
       },
       priority: {
         type: DataTypes.STRING,
