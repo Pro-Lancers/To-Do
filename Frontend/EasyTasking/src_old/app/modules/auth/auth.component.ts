@@ -67,19 +67,19 @@ export class AuthComponent implements OnInit {
           this.authService.initSession();
           this.router.navigate(['/dashboard']);
         } else {
-          this.utils.isLoading = false;
           this.utils.errorMessage('Invalid UserId / Password !');
         }
       }, (error) => {
         this.utils.isLoading = false;
+        console.log(error)
         this.utils.errorMessage('Failed to authenticate !');
       });
     }
   }
 
   // tslint:disable-next-line:max-line-length
-  constructor(private router: Router, private activatedRouter: ActivatedRoute, private utils: ServerService,
-    private cookieService: CookieService, private authService: AuthService, private todoService: TodoService) {
+  constructor(private router: Router, private activatedRouter: ActivatedRoute, private utils: ServerService, private cookieService: CookieService, private authService: AuthService, private todoService: TodoService) {
+
   }
 
   ngOnInit(): void {

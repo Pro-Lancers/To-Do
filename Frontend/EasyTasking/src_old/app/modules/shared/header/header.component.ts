@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/service/auth.service';
-import { CookieService } from "../../../service/cookie.service";
-import { Router } from "@angular/router";
+import {CookieService} from "../../../service/cookie.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -12,14 +12,15 @@ export class HeaderComponent implements OnInit {
 
   username = 'GUest';
 
-  constructor(private authService: AuthService, private cookieService: CookieService, private router: Router) {
+  constructor(private authService: AuthService,private cookieService:CookieService,private router:Router) {
+
   }
 
   ngOnInit(): void {
-    this.username = JSON.parse(localStorage.getItem('_CurrentUser')).name;
+    this.username = this.authService.CurrentUser.name
   }
 
-  logout() {
+  logout(){
     localStorage.removeItem('_CurrentUser')
     this.cookieService.deleteCookie('auth_token')
     this.router.navigate(['/authenticate/login'])

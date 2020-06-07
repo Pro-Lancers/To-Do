@@ -6,19 +6,19 @@
         <div class="selection">
           <div class="fil-header">
             <div class="name">{{ filter }}</div>
-            <img src="assets\icons\pointer.png" />
+            <img src="assets\icons\pointer.png"/>
           </div>
           <div class="filter-options">
             <div (click)="filterSelect('All')" class="filter-ele">
-              <img src="assets/icons/all-icon.svg" />
+              <img src="assets/icons/all-icon.svg"/>
               <span>All</span>
             </div>
             <div (click)="filterSelect('In-Progress')" class="filter-ele">
-              <img src="assets/icons/progress-icon.svg" />
+              <img src="assets/icons/progress-icon.svg"/>
               <span>InProgress</span>
             </div>
             <div (click)="filterSelect('Completed')" class="filter-ele">
-              <img src="assets/icons/completed-icon.svg" />
+              <img src="assets/icons/completed-icon.svg"/>
               <span>completed</span>
             </div>
           </div>
@@ -27,27 +27,27 @@
         <div class="selection">
           <div class="fil-header">
             <div class="name">{{ Category }}</div>
-            <img src="assets\icons\pointer.png" />
+            <img src="assets\icons\pointer.png"/>
           </div>
           <div class="filter-options">
             <div (click)="categorySelect('Category')" class="filter-ele">
-              <img src="assets/icons/all-icon.svg" />
+              <img src="assets/icons/all-icon.svg"/>
               <span>All</span>
             </div>
             <div (click)="categorySelect('Work')" class="filter-ele">
-              <img src="assets/icons/Work-icon.svg" />
+              <img src="assets/icons/Work-icon.svg"/>
               <span>Work</span>
             </div>
             <div (click)="categorySelect('Personal')" class="filter-ele">
-              <img src="assets/icons/personal-icon.svg" />
+              <img src="assets/icons/personal-icon.svg"/>
               <span>Personal</span>
             </div>
             <div (click)="categorySelect('Shopping')" class="filter-ele">
-              <img src="assets/icons/Shopping-icon.svg" />
+              <img src="assets/icons/Shopping-icon.svg"/>
               <span>Shopping</span>
             </div>
             <div (click)="categorySelect('Others')" class="filter-ele">
-              <img src="assets/icons/other-icon.svg" />
+              <img src="assets/icons/other-icon.svg"/>
               <span>Others</span>
             </div>
           </div>
@@ -56,7 +56,7 @@
     </section>
 
     <section class="col-lg-3 pc-only filters">
-      <div (click)="isNewTask = true" class="filter-ele fill-btn">
+      <div class="filter-ele fill-btn">
         <span class="img">+</span>
         <span>Add Task</span>
       </div>
@@ -65,15 +65,15 @@
                 <span>New</span>
             </div> -->
       <div (click)="filterSelect('All')" class="filter-ele">
-        <img src="assets/icons/all-icon.svg" />
+        <img src="assets/icons/all-icon.svg"/>
         <span>All</span>
       </div>
       <div (click)="filterSelect('In-Progress')" class="filter-ele">
-        <img src="assets/icons/progress-icon.svg" />
+        <img src="assets/icons/progress-icon.svg"/>
         <span>InProgress</span>
       </div>
       <div (click)="filterSelect('Completed')" class="filter-ele">
-        <img src="assets/icons/completed-icon.svg" />
+        <img src="assets/icons/completed-icon.svg"/>
         <span>completed</span>
       </div>
       <!-- <div class="filter-ele">
@@ -84,19 +84,19 @@
         Category
       </div>
       <div (click)="categorySelect('WORK')" class="filter-ele">
-        <img src="assets/icons/Work-icon.svg" />
+        <img src="assets/icons/Work-icon.svg"/>
         <span>Work</span>
       </div>
       <div (click)="categorySelect('PERSONAL')" class="filter-ele">
-        <img src="assets/icons/personal-icon.svg" />
+        <img src="assets/icons/personal-icon.svg"/>
         <span>Personal</span>
       </div>
       <div (click)="categorySelect('SHOPPING')" class="filter-ele">
-        <img src="assets/icons/Shopping-icon.svg" />
+        <img src="assets/icons/Shopping-icon.svg"/>
         <span>Shopping</span>
       </div>
       <div (click)="categorySelect('OTHERS')" class="filter-ele">
-        <img src="assets/icons/other-icon.svg" />
+        <img src="assets/icons/other-icon.svg"/>
         <span>Others</span>
       </div>
     </section>
@@ -110,36 +110,59 @@
         <div class="col">
           <div class="cards-wrapper">
             <!-- TODO Card -->
-            <div *ngFor="let todo of viewTodo; let i = index" class="et-card card-container">
-              <img *ngIf="todo && todo.label== 'WORK'" src="assets/icons/work-label.svg" />
-              <img *ngIf="todo &&  todo.label== 'PERSONAL'" src="assets/icons/personal-label.svg" />
-              <img *ngIf="todo.label.toUpperCase() == 'SHOPPING'" src="assets/icons/shopping-label.svg" />
-              <img *ngIf="todo && todo.label == 'OTHERS'" src="assets/icons/other-label.svg" />
+            <div
+              *ngFor="let todo of viewTodo; let i = index"
+              class="et-card card-container"
+            >
+              <img
+                *ngIf="todo && todo.label== 'WORK'"
+                src="assets/icons/work-label.svg"
+              />
+              <img
+                *ngIf="todo &&  todo.label== 'PERSONAL'"
+                src="assets/icons/personal-label.svg"
+              />
+              <img
+                *ngIf="todo.label.toUpperCase() == 'SHOPPING'"
+                src="assets/icons/shopping-label.svg"
+              />
+              <img
+                *ngIf="todo && todo.label == 'OTHERS'"
+                src="assets/icons/other-label.svg"
+              />
               <div class="card-content">
-                <small>Last date: {{ todo.dueDate | date: "dd/MM/yyyy" }}</small>
+                <small
+                >Last date: {{ todo.dueDate | date: "dd/MM/yyyy" }}</small
+                >
                 <h6>{{ todo.todoItem }}</h6>
               </div>
               <div class="card-status">
                 {{ todo.stage }}
-                <span class="menu" style="height: 20px; line-height: 20px; width: 20px;"><svg focusable="false"
-                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <span
+                  class="menu"
+                  style="height: 20px; line-height: 20px; width: 20px;"
+                ><svg
+                  focusable="false"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                >
                     <path
-                      d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z">
-                    </path>
+                      d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"
+                    ></path>
                   </svg>
                   <div class="option">
                     <div (click)="menu(todo, i, 'edit')" class="option-ele">
                       Edit
                     </div>
-                    <!--                    <div-->
-                    <!--                      (click)="menu(todo, i, 'inProgress')"-->
-                    <!--                      class="option-ele"-->
-                    <!--                    >-->
-                    <!--                      In-Progress-->
-                    <!--                    </div>-->
-                    <!--                    <div (click)="menu(todo, i, 'complete')" class="option-ele">-->
-                    <!--                      Completed-->
-                    <!--                    </div>-->
+<!--                    <div-->
+<!--                      (click)="menu(todo, i, 'inProgress')"-->
+<!--                      class="option-ele"-->
+<!--                    >-->
+<!--                      In-Progress-->
+<!--                    </div>-->
+<!--                    <div (click)="menu(todo, i, 'complete')" class="option-ele">-->
+<!--                      Completed-->
+<!--                    </div>-->
                     <div (click)="menu(todo, i, 'delete')" class="option-ele">
                       Delete
                     </div>
@@ -147,43 +170,78 @@
                 </span>
               </div>
             </div>
-            <br>
+
             <!-- New Todo ard -->
-            <div [ngClass]="{ 'new-card': isNewTask }" class="card-container add-card">
-              <div *ngIf="!isNewTask" (click)="isNewTask = true" class="new-task">
+            <div
+              [ngClass]="{ 'new-card': isNewTask }"
+              class="card-container add-card"
+            >
+              <div
+                *ngIf="!isNewTask"
+                (click)="isNewTask = true"
+                class="new-task"
+              >
                 + Add Task
               </div>
               <div *ngIf="isNewTask" class="new-form">
                 <div class="closer" (click)="resetForm()">x</div>
                 <div class="inputs-wrapper">
-                  <form [formGroup]="newTaskFormGroup" (ngSubmit)="addNewTask()">
+                  <form
+                    [formGroup]="newTaskFormGroup"
+                    (ngSubmit)="addNewTask()"
+                  >
                     <div class="input-wrapper">
                       <span> Task : </span>
-                      <input type="text" placeholder="Task Name" class="form-input" formControlName="taskName" />
+                      <input
+                        type="text"
+                        placeholder="Task Name"
+                        class="form-input"
+                        formControlName="taskName"
+                      />
                     </div>
-                    <div *ngIf="
+                    <div
+                      *ngIf="
                         (newTaskFormObj.taskName.touched || isAddingTask) &&
                         newTaskFormObj.taskName.invalid
-                      " class="alert alert-dismissible alert-danger">
-                      <span *ngIf="newTaskFormObj.taskName.errors.required">Name is required.</span>
-                      <span *ngIf="newTaskFormObj.taskName.errors.minlength">Name should be 3 character.</span>
+                      "
+                      class="alert alert-dismissible alert-danger"
+                    >
+                      <span *ngIf="newTaskFormObj.taskName.errors.required"
+                      >Name is required.</span
+                      >
+                      <span *ngIf="newTaskFormObj.taskName.errors.minlength"
+                      >Name should be 3 character.</span
+                      >
                     </div>
                     <div class="input-wrapper">
                       <span> Last date : </span>
-                      <input type="date" placeholder="Date" class="form-input" formControlName="taskDeadline" />
+                      <input
+                        type="date"
+                        placeholder="Date"
+                        class="form-input"
+                        formControlName="taskDeadline"
+                      />
                     </div>
-                    <div *ngIf="
+                    <div
+                      *ngIf="
                         (newTaskFormObj.taskDeadline.touched || isAddingTask) &&
                         newTaskFormObj.taskDeadline.invalid
-                      " class="alert alert-dismissible alert-danger">
-                      <span *ngIf="newTaskFormObj.taskDeadline.errors.required">Set a rough deadline.</span>
+                      "
+                      class="alert alert-dismissible alert-danger"
+                    >
+                      <span *ngIf="newTaskFormObj.taskDeadline.errors.required"
+                      >Set a rough deadline.</span
+                      >
                     </div>
                     <div class="input-wrapper">
                       <span> Label : </span>
                       <select name="label" formControlName="taskLabel">
                         <option value="" selected>Choose a label</option>
-                        <option *ngFor="let pair of TODO_LABELS | keyvalue" [value]="pair.value.toString()">
-                          {{ pair.key.toString() }}</option>
+                        <option
+                          *ngFor="let pair of TODO_LABELS | keyvalue"
+                          [value]="pair.value.toString()"
+                        >{{ pair.key.toString() }}</option
+                        >
                         <!-- <option value="WORK">Work</option>
                                                 <option value="EDUCATION">Education</option>
                                                 <option value="PERSONAL" >Personal</option>
@@ -191,29 +249,42 @@
                                                 <option value="OTHERS">Others</option> -->
                       </select>
                     </div>
-                    <div *ngIf="
+                    <div
+                      *ngIf="
                         (newTaskFormObj.taskLabel.touched || isAddingTask) &&
                         newTaskFormObj.taskLabel.invalid
-                      " class="alert alert-dismissible alert-danger">
-                      <span *ngIf="newTaskFormObj.taskLabel.errors?.required">Select a label.</span>
+                      "
+                      class="alert alert-dismissible alert-danger"
+                    >
+                      <span *ngIf="newTaskFormObj.taskLabel.errors?.required"
+                      >Select a label.</span
+                      >
                     </div>
                     <div class="input-wrapper">
                       <span> Priority : </span>
                       <select name="label" formControlName="taskPriority">
                         <option value="" selected>Choose task priority</option>
-                        <option *ngFor="let pair of TODO_PRIORITIES | keyvalue" [value]="pair.value.toString()">
-                          {{ pair.key.toString() }}</option>
+                        <option
+                          *ngFor="let pair of TODO_PRIORITIES | keyvalue"
+                          [value]="pair.value.toString()"
+                        >{{ pair.key.toString() }}</option
+                        >
                         <!-- <option value="URGENT">Urgent</option>
                                             <option value="HIGH">High</option>
                                             <option value="MEDIUM">Medium</option>
                                             <option value="LOW">Low</option> -->
                       </select>
                     </div>
-                    <div *ngIf="
+                    <div
+                      *ngIf="
                         (newTaskFormObj.taskPriority.touched || isAddingTask) &&
                         newTaskFormObj.taskPriority.invalid
-                      " class="alert alert-dismissible alert-danger">
-                      <span *ngIf="newTaskFormObj.taskPriority.errors?.required">Select a priority.</span>
+                      "
+                      class="alert alert-dismissible alert-danger"
+                    >
+                      <span *ngIf="newTaskFormObj.taskPriority.errors?.required"
+                      >Select a priority.</span
+                      >
                     </div>
                     <div class="form-footer">
                       <button type="submit">Save</button>
@@ -239,33 +310,58 @@
           <div>
             <div class="input-wrapper">
               <span> Task : </span>
-              <input type="text" placeholder="Task Name" class="form-input" formControlName="taskName"
-                [(ngModel)]="currentEditingTask.todoItem" />
+              <input
+                type="text"
+                placeholder="Task Name"
+                class="form-input"
+                formControlName="taskName"
+                [(ngModel)]="currentEditingTask.todoItem"
+              />
             </div>
-            <div *ngIf="
+            <div
+              *ngIf="
                 (editTaskFormObj.taskName.touched || isUpdatingTask) &&
                 editTaskFormObj.taskName.invalid
-              " class="alert alert-dismissible alert-danger">
-              <span *ngIf="editTaskFormObj.taskName.errors.required">Name is required.</span>
-              <span *ngIf="editTaskFormObj.taskName.errors.minlength">Name should be 3 character.</span>
+              "
+              class="alert alert-dismissible alert-danger"
+            >
+              <span *ngIf="editTaskFormObj.taskName.errors.required"
+              >Name is required.</span
+              >
+              <span *ngIf="editTaskFormObj.taskName.errors.minlength"
+              >Name should be 3 character.</span
+              >
             </div>
             <div class="input-wrapper">
               <span> Last date : </span>
-              <input type="date" placeholder="Date" [(ngModel)]="currentEditingTask.dueDate" class="form-input"
-                formControlName="taskDeadline" />
+              <input
+                type="date"
+                placeholder="Date"
+                [(ngModel)]="currentEditingTask.dueDate"
+                class="form-input"
+                formControlName="taskDeadline"
+              />
             </div>
-            <div *ngIf="
+            <div
+              *ngIf="
                 (editTaskFormObj.taskDeadline.touched || isUpdatingTask) &&
                 editTaskFormObj.taskDeadline.invalid
-              " class="alert alert-dismissible alert-danger">
-              <span *ngIf="editTaskFormObj.taskDeadline.errors.required">Set a rough deadline.</span>
+              "
+              class="alert alert-dismissible alert-danger"
+            >
+              <span *ngIf="editTaskFormObj.taskDeadline.errors.required"
+              >Set a rough deadline.</span
+              >
             </div>
             <div class="input-wrapper">
               <span> Label : </span>
               <select name="label" formControlName="taskLabel" [(ngModel)]="currentEditingTask.label">
                 <option value="" selected>Choose a label</option>
-                <option *ngFor="let pair of TODO_LABELS | keyvalue" [value]="pair.value.toString()">
-                  {{ pair.key.toString() }}</option>
+                <option
+                  *ngFor="let pair of TODO_LABELS | keyvalue"
+                  [value]="pair.value.toString()"
+                >{{ pair.key.toString() }}</option
+                >
                 <!-- <option [value]="'WORK'">Work</option>
                                 <option [value]="'PERSONAL'" selected>Personal</option>
                                 <option [value]="'EDUCATION'">Education</option>
@@ -273,47 +369,68 @@
                                 <option [value]="'OTHERS'">Others</option> -->
               </select>
             </div>
-            <div *ngIf="
+            <div
+              *ngIf="
                 (editTaskFormObj.taskLabel.touched || isUpdatingTask) &&
                 editTaskFormObj.taskLabel.invalid
-              " class="alert alert-dismissible alert-danger">
-              <span *ngIf="editTaskFormObj.taskLabel.errors?.required">Select a label.</span>
+              "
+              class="alert alert-dismissible alert-danger"
+            >
+              <span *ngIf="editTaskFormObj.taskLabel.errors?.required"
+              >Select a label.</span
+              >
             </div>
             <div class="input-wrapper">
               <span> Priority : </span>
               <select name="label" formControlName="taskPriority" [(ngModel)]="currentEditingTask.priority">
                 <option value="" selected>Choose task priority</option>
-                <option *ngFor="let pair of TODO_PRIORITIES | keyvalue" [value]="pair.value.toString()">
-                  {{ pair.key.toString() }}</option>
+                <option
+                  *ngFor="let pair of TODO_PRIORITIES | keyvalue"
+                  [value]="pair.value.toString()"
+                >{{ pair.key.toString() }}</option
+                >
                 <!-- <option value="URGENT">Urgent</option>
                                 <option value="HIGH">High</option>
                                 <option value="MEDIUM">Medium</option>
                                 <option value="LOW">Low</option> -->
               </select>
             </div>
-            <div *ngIf="
+            <div
+              *ngIf="
                 (editTaskFormObj.taskPriority.touched || isUpdatingTask) &&
                 editTaskFormObj.taskPriority.invalid
-              " class="alert alert-dismissible alert-danger">
-              <span *ngIf="editTaskFormObj.taskPriority.errors?.required">Set a Priority.</span>
+              "
+              class="alert alert-dismissible alert-danger"
+            >
+              <span *ngIf="editTaskFormObj.taskPriority.errors?.required"
+              >Set a Priority.</span
+              >
             </div>
             <div class="input-wrapper">
               <span> Status : </span>
               <select name="label" formControlName="taskStage" [(ngModel)]="currentEditingTask.stage">
                 <option value="" selected>Choose progress</option>
-                <option *ngFor="let pair of TODO_STAGES | keyvalue" [value]="pair.value.toString()">
-                  {{ pair.key.toString() }}</option>
+                <option
+                  *ngFor="let pair of TODO_STAGES | keyvalue"
+                  [value]="pair.value.toString()"
+                >{{ pair.key.toString() }}</option
+                >
                 <!-- <option value="PENDING">Pending</option>
                                 <option value="IN_PROGRESS">Working on</option>
                                 <option value="COMPLETED">Completed</option>
                                 <option value="CANCELLED">Cancelled</option> -->
               </select>
             </div>
-            <div *ngIf="
+            <div
+              *ngIf="
                 (editTaskFormObj.taskStage.touched || isUpdatingTask) &&
                 editTaskFormObj.taskStage.invalid
-              " class="alert alert-dismissible alert-danger">
-              <span *ngIf="editTaskFormObj.taskStage.errors?.required">Set a progress.</span>
+              "
+              class="alert alert-dismissible alert-danger"
+            >
+              <span *ngIf="editTaskFormObj.taskStage.errors?.required"
+              >Set a progress.</span
+              >
             </div>
             <div class="form-footer">
               <button type="submit">Save</button>
