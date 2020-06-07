@@ -69,6 +69,8 @@ export class TodoComponent implements OnInit {
           }
           this.viewTodo = [...this.todoList];
           this.utils.isLoading = false
+        } else {
+          this.utils.isLoading = false;
         }
       });
     } else {
@@ -182,6 +184,7 @@ export class TodoComponent implements OnInit {
           this.updateTodoArray('replace', { index: this.currentEditingTask.originalIndex, data: response.data });
           this.resetForm();
         } else {
+          this.utils.isLoading = false;
           this.utils.errorMessage('Failed to update task !');
         }
       }, (error) => {

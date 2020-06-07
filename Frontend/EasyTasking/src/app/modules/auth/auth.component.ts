@@ -65,7 +65,9 @@ export class AuthComponent implements OnInit {
         if (response.success) {
           this.cookieService.setCookie('auth_token', response.data.token, 1);
           this.authService.initSession();
-          this.router.navigate(['/dashboard']);
+          setTimeout(() => {
+            this.router.navigate(['/dashboard']);
+          }, 1000);
         } else {
           this.utils.isLoading = false;
           this.utils.errorMessage('Invalid UserId / Password !');
