@@ -3,10 +3,10 @@ const { Response, Logger } = require("../../../package");
 const httpStatusCodes = require("http-status-codes");
 const UserService = require("../../../services/User");
 const TokenService = require("../../../services/Token");
+
 class UserController {
   static async createUser(req, res) {
     try {
-      console.log("USER : ", req.body);
       Logger.log("info", "Creating user");
       const newUser = await UserService.createUser(req.body);
       Response.success(res, "success", newUser, httpStatusCodes.CREATED);

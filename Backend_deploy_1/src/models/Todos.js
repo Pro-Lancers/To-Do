@@ -1,5 +1,5 @@
 // todo: can make the datatypes of priority and label as ENUM by finalizing the value
-const { TODO_PENDING_STAGE } = require("../utils/constants");
+const { IN_PROGRESS_STAGE  } = require("../utils/constants");
 
 module.exports = (sequelize, DataTypes) => {
   const Todo = sequelize.define(
@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       stage: {
         type: DataTypes.STRING,
         allowNull: false,
-        defaultValue: TODO_PENDING_STAGE,
+        defaultValue: IN_PROGRESS_STAGE,
       },
       priority: {
         type: DataTypes.STRING,
