@@ -18,8 +18,7 @@ export class TodoService {
   }
 
   public fetchTodoList() {
-    let temp: any = JSON.parse(localStorage.getItem('currentUser'));
-    return this.http.get<Todo[]>(this._baseApiUrl + temp.id + '/todos');
+    return this.http.get<Todo[]>(this._baseApiUrl + this.authService.getUserInfo().id + '/todos');
   }
 
   public addTask(task) {

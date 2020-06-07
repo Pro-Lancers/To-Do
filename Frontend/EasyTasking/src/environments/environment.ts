@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://c4fd217f2a36.ngrok.io'
+  baseUrl: 'https://easy-tasking.herokuapp.com'
 };
 
 /*
