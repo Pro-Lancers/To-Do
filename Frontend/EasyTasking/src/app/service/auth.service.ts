@@ -50,7 +50,11 @@ export class AuthService {
 
   public initUserInfo(obj) {
     this.CurrentUser = obj;
-    localStorage.setItem('currentUser', JSON.stringify(obj))
+    localStorage.setItem('_CurrentUser', JSON.stringify(obj))
+  }
+
+  public getUserInfo() {
+    return JSON.parse(localStorage.getItem('_CurrentUser'))
   }
 
   public initSession() {
@@ -59,7 +63,6 @@ export class AuthService {
       .pipe(
         tap((res: any) => {
           if (res.success) {
-            console.log('user :', res.data);
             this.initUserInfo(res.data);
           }
         }),
